@@ -112,7 +112,7 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#finished_goods-basic" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-title">উৎপাদিত পণ্য</span>
+                <span class="menu-title">পণ্য</span>
                 <i class="menu-arrow"></i>
                 <i class="mdi mdi-rice menu-icon"></i>
             </a>
@@ -167,32 +167,32 @@
 {{--                </ul>--}}
 {{--            </div>--}}
 {{--        </li>--}}
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" data-toggle="collapse" href="#purchase-basic" aria-expanded="false" aria-controls="ui-basic">--}}
-{{--                <span class="menu-title">ক্রয়</span>--}}
-{{--                <i class="menu-arrow"></i>--}}
-{{--                <i class="mdi mdi-cash menu-icon"></i>--}}
-{{--            </a>--}}
-{{--            <div class="collapse" id="purchase-basic">--}}
-{{--                <ul class="nav flex-column sub-menu">--}}
-{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('purchase.create')}}">নতুন ক্রয়</a></li>--}}
-{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('purchase.index')}}">ক্রয় তালিকা</a></li>--}}
-{{--                </ul>--}}
-{{--            </div>--}}
-{{--        </li>--}}
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" data-toggle="collapse" href="#sales-basic" aria-expanded="false" aria-controls="ui-basic">--}}
-{{--                <span class="menu-title">বিক্রয়</span>--}}
-{{--                <i class="menu-arrow"></i>--}}
-{{--                <i class="mdi mdi-cash menu-icon"></i>--}}
-{{--            </a>--}}
-{{--            <div class="collapse" id="sales-basic">--}}
-{{--                <ul class="nav flex-column sub-menu">--}}
-{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('sell.create')}}">নতুন বিক্রয়</a></li>--}}
-{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('sell.index')}}">বিক্রয় তালিকা</a></li>--}}
-{{--                </ul>--}}
-{{--            </div>--}}
-{{--        </li>--}}
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#purchase-basic" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">ক্রয়</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-cash menu-icon"></i>
+            </a>
+            <div class="collapse" id="purchase-basic">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{route('purchase.create')}}">নতুন ক্রয়</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('purchase.index')}}">ক্রয় তালিকা</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#sales-basic" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">বিক্রয়</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-cash menu-icon"></i>
+            </a>
+            <div class="collapse" id="sales-basic">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{route('sell.create')}}">নতুন বিক্রয়</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('sell.index')}}">বিক্রয় তালিকা</a></li>
+                </ul>
+            </div>
+        </li>
 {{--        <li class="nav-item">--}}
 {{--            <a class="nav-link" data-toggle="collapse" href="#request_approval-basic" aria-expanded="false" aria-controls="ui-basic">--}}
 {{--                <span class="menu-title">অনুমোদন করুন</span>--}}
@@ -207,32 +207,32 @@
 {{--                </ul>--}}
 {{--            </div>--}}
 {{--        </li>--}}
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" data-toggle="collapse" href="#collection-basic" aria-expanded="false" aria-controls="head-basic">--}}
-{{--                <span class="menu-title">কালেকশন</span>--}}
-{{--                <i class="menu-arrow"></i>--}}
-{{--                <i class="mdi mdi-currency-usd menu-icon"></i>--}}
-{{--            </a>--}}
-{{--            <div class="collapse" id="collection-basic">--}}
-{{--                <ul class="nav flex-column sub-menu">--}}
-{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('collection.create')}}">নতুন কালেকশন</a></li>--}}
-{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('collection.index')}}">কালেকশন লিস্ট</a></li>--}}
-{{--                </ul>--}}
-{{--            </div>--}}
-{{--        </li>--}}
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" data-toggle="collapse" href="#head-basic" aria-expanded="false" aria-controls="head-basic">--}}
-{{--                <span class="menu-title">পেমেন্ট</span>--}}
-{{--                <i class="menu-arrow"></i>--}}
-{{--                <i class="mdi mdi-currency-usd menu-icon"></i>--}}
-{{--            </a>--}}
-{{--            <div class="collapse" id="head-basic">--}}
-{{--                <ul class="nav flex-column sub-menu">--}}
-{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('payment.create')}}">নতুন পেমেন্ট</a></li>--}}
-{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('payment.index')}}">পেমেন্ট লিস্ট</a></li>--}}
-{{--                </ul>--}}
-{{--            </div>--}}
-{{--        </li>--}}
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#collection-basic" aria-expanded="false" aria-controls="head-basic">
+                <span class="menu-title">কালেকশন</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-currency-usd menu-icon"></i>
+            </a>
+            <div class="collapse" id="collection-basic">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{route('collection.create')}}">নতুন কালেকশন</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('collection.index')}}">কালেকশন লিস্ট</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#head-basic" aria-expanded="false" aria-controls="head-basic">
+                <span class="menu-title">পেমেন্ট</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-currency-usd menu-icon"></i>
+            </a>
+            <div class="collapse" id="head-basic">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{route('payment.create')}}">নতুন পেমেন্ট</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('payment.index')}}">পেমেন্ট লিস্ট</a></li>
+                </ul>
+            </div>
+        </li>
 {{--        <li class="nav-item">--}}
 {{--            <a class="nav-link" data-toggle="collapse" href="#salary_advance-basic" aria-expanded="false" aria-controls="ui-basic">--}}
 {{--                <span class="menu-title">অগ্রীম</span>--}}
@@ -246,47 +246,99 @@
 {{--                </ul>--}}
 {{--            </div>--}}
 {{--        </li>--}}
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" data-toggle="collapse" href="#payroll-basic" aria-expanded="false" aria-controls="ui-basic">--}}
-{{--                <span class="menu-title">বেতন-ভাতা</span>--}}
-{{--                <i class="menu-arrow"></i>--}}
-{{--                <i class="mdi mdi-cash menu-icon"></i>--}}
-{{--            </a>--}}
-{{--            <div class="collapse" id="payroll-basic">--}}
-{{--                <ul class="nav flex-column sub-menu">--}}
-{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('payroll.create')}}">নতুন বেতন-ভাতা</a></li>--}}
-{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('payroll.index')}}">বেতন-ভাতা তালিকা</a></li>--}}
-{{--                </ul>--}}
-{{--            </div>--}}
-{{--        </li>--}}
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#administrative-basic" aria-expanded="false" aria-controls="head-basic">
-                <span class="menu-title">দাপ্তরিক খরচ</span>
+            <a class="nav-link" data-toggle="collapse" href="#payroll-basic" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">বেতন-ভাতা</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-cash menu-icon"></i>
+            </a>
+            <div class="collapse" id="payroll-basic">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{route('payroll.create')}}">নতুন বেতন-ভাতা</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('payroll.index')}}">বেতন-ভাতা তালিকা</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#shooter-basic" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">শ্যুটার</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-cash menu-icon"></i>
+            </a>
+            <div class="collapse" id="shooter-basic">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="#">নতুন শ্যুটার</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="#">শ্যুটার তালিকা</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#general-basic" aria-expanded="false" aria-controls="head-basic">
+                <span class="menu-title">সাধারন খরচ</span>
                 <i class="menu-arrow"></i>
                 <i class="mdi mdi-currency-usd menu-icon"></i>
             </a>
-            <div class="collapse" id="administrative-basic">
+            <div class="collapse" id="general-basic">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="{{route('administrative.create')}}">নতুন দাপ্তরিক খরচ</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{route('administrative.index')}}">দাপ্তরিক খরচ তালিকা</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('expense.create')}}">নতুন খরচ</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('expense.index')}}">খরচ তালিকা</a></li>
                 </ul>
             </div>
         </li>
 {{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" data-toggle="collapse" href="#bank-basic" aria-expanded="false" aria-controls="head-basic">--}}
-{{--                <span class="menu-title">ব্যাংক</span>--}}
+{{--            <a class="nav-link" data-toggle="collapse" href="#administrative-basic" aria-expanded="false" aria-controls="head-basic">--}}
+{{--                <span class="menu-title">দাপ্তরিক খরচ</span>--}}
 {{--                <i class="menu-arrow"></i>--}}
-{{--                <i class="mdi mdi-bank menu-icon"></i>--}}
+{{--                <i class="mdi mdi-currency-usd menu-icon"></i>--}}
 {{--            </a>--}}
-{{--            <div class="collapse" id="bank-basic">--}}
+{{--            <div class="collapse" id="administrative-basic">--}}
 {{--                <ul class="nav flex-column sub-menu">--}}
-{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('bank.create')}}">নতুন ব্যাংক</a></li>--}}
-{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('bank.index')}}">ব্যাংকের তালিকা</a></li>--}}
-{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('cheque.create')}}">চেক বই এন্ট্রি</a></li>--}}
-{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('cheque.index')}}">চেক বই প্রিন্ট</a></li>--}}
+{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('administrative.create')}}">নতুন দাপ্তরিক খরচ</a></li>--}}
+{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('administrative.index')}}">দাপ্তরিক খরচ তালিকা</a></li>--}}
 {{--                </ul>--}}
 {{--            </div>--}}
 {{--        </li>--}}
+{{--        <li class="nav-item">--}}
+{{--            <a class="nav-link" data-toggle="collapse" href="#family-basic" aria-expanded="false" aria-controls="head-basic">--}}
+{{--                <span class="menu-title">পারিবারিক খরচ</span>--}}
+{{--                <i class="menu-arrow"></i>--}}
+{{--                <i class="mdi mdi-currency-usd menu-icon"></i>--}}
+{{--            </a>--}}
+{{--            <div class="collapse" id="family-basic">--}}
+{{--                <ul class="nav flex-column sub-menu">--}}
+{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('family_cost.create')}}">নতুন পারিবারিক খরচ</a></li>--}}
+{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('family_cost.index')}}">পারিবারিক খরচ তালিকা</a></li>--}}
+{{--                </ul>--}}
+{{--            </div>--}}
+{{--        </li>--}}
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#contra_journal-basic" aria-expanded="false" aria-controls="head-basic">
+                <span class="menu-title">কন্ট্রা জার্নাল</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-currency-usd menu-icon"></i>
+            </a>
+            <div class="collapse" id="contra_journal-basic">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{route('contra_journal.create')}}">নতুন কন্ট্রা জার্নাল</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('contra_journal.index')}}">কন্ট্রা জার্নাল তালিকা</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#bank-basic" aria-expanded="false" aria-controls="head-basic">
+                <span class="menu-title">ব্যাংক</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-bank menu-icon"></i>
+            </a>
+            <div class="collapse" id="bank-basic">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{route('bank.create')}}">নতুন ব্যাংক</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('bank.index')}}">ব্যাংকের তালিকা</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('cheque.create')}}">চেক বই এন্ট্রি</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('cheque.index')}}">চেক বই প্রিন্ট</a></li>
+                </ul>
+            </div>
+        </li>
 {{--        <li class="nav-item">--}}
 {{--            <a class="nav-link" data-toggle="collapse" href="#report-basic" aria-expanded="false" aria-controls="head-basic">--}}
 {{--                <span class="menu-title">রিপোর্ট</span>--}}

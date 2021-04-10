@@ -26,50 +26,7 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-6 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row table-responsive">
-                        <div class="col-lg-12">
-                                <h2 class="text-center text-info">অগ্রীম বেতন-ভাতা তালিকা<hr/></h2><br/>
-                            <table class="table table-striped">
-                                <thead>
-                                <tr class="text-center">
-                                    <th> ক্রমিক নং</th>
-                                    <th> তারিখ </th>
-                                    <th> টাকার পরিমাণ</th>
-                                    <th> মোট পরিশোধিত টাকা</th>
-                                    <th> বকেয়া</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @forelse($advances as $advance)
-                                    <tr class="text-center">
-                                        <td>{{$loop->index+1}}</td>
-                                        <td>{{date('d-m-Y', strtotime($advance->date))}}</td>
-                                        <td>{{!empty($advance->amount) ? number_format($advance->amount) : '0'}} .00</td>
-                                        <td>{{!empty($advance->total_paid) ? number_format($advance->total_paid) : '0'}} .00</td>
-                                        <td>{{!empty($advance->due_amount) ? number_format($advance->due_amount) : '0'}} .00</td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="5" class="text-center text-info">{{'কোনো অগ্রীম বেতন-ভাতা নেই'}}</td>
-                                    </tr>
-                                @endforelse
-                                </tbody>
-                                <tfoot>
-                                <tr class="text-center">
-                                    <td colspan="4">মোট বকেয়া</td>
-                                    <td>{{!empty($advance->due_amount) ? number_format($advances->sum('due_amount')) : '0'}}.00</td>
-                                </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6 grid-margin stretch-card">
+        <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <div class="row table-responsive">
@@ -80,8 +37,7 @@
                                 <tr class="text-center">
                                     <th> ক্রমিক নং</th>
                                     <th> তারিখ</th>
-                                    <th> মাস</th>
-                                    <th>বেতন</th>
+                                    <th> বেতন</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -89,15 +45,20 @@
                                     <tr class="text-center">
                                         <td>{{$loop->index+1}}</td>
                                         <td>{{date('d-m-Y', strtotime($payroll->date))}}</td>
-                                        <td>{{date('F Y', strtotime($payroll->month))}}</td>
-                                        <td>{{number_format($payroll->net_amount)}} .00</td>
+                                        <td>{{number_format($payroll->amount)}} .00</td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4" class="text-center text-info">{{'কোনো বেতন-ভাতা নেই'}}</td>
+                                        <td colspan="3" class="text-center text-info">{{'কোনো বেতন-ভাতা নেই'}}</td>
                                     </tr>
                                 @endforelse
                                 </tbody>
+                                <tfoot>
+                                <tr class="text-center">
+                                    <td colspan="2">মোট</td>
+                                    <td>{{number_format($payrolls->sum('amount'))}}</td>
+                                </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>

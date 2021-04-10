@@ -9,21 +9,17 @@ class Sell extends Model
     protected $fillable = [
       'date',
       'client_id',
-      'retail_sell',
-      'finishedgood_id',
+      'type_of_rice',
       'quantity',
-      'rate_per_unit',
-      'status',
-      'warehouse_id',
+      'quantity_kg',
+      'unit_price',
+      'total_price',
+      'total',
+      'payment',
+      'mode_of_payment',
     ];
     protected $table = 'sells';
     public function client(){
         return $this->belongsTo('App\Client');
-    }
-    public function finishedgood(){
-        return $this->belongsTo('App\Finishedgood');
-    }
-    public function warehouse(){
-        return $this->belongsTo('App\Warehouse');
     }
 }

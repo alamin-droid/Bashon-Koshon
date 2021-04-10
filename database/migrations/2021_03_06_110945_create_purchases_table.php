@@ -12,13 +12,14 @@ class CreatePurchasesTable extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('date')->nullable();
-            $table->longtext('rawmaterial_id')->nullable();
-            $table->longtext('quantity')->nullable();
-            $table->longtext('unit')->nullable();
-            $table->longtext('rate_per_unit')->nullable();
-            $table->longtext('supplier_id')->nullable();
-            $table->longtext('warehouse_id')->nullable();
-            $table->string('status')->nullable();
+            $table->string('supplier_id')->nullable();
+            $table->string('bag')->nullable();
+            $table->string('quantity')->nullable();
+            $table->string('unit_price')->nullable();
+            $table->string('total_price')->nullable();
+            $table->string('bag_price')->nullable();
+            $table->string('total_bag_price')->nullable();
+            $table->string('total')->nullable();
             $table->timestamps();
         });
     }

@@ -12,15 +12,8 @@ class CreatePayrollsTable extends Migration
         Schema::create('payrolls', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('date')->nullable();
-            $table->string('month')->nullable();
             $table->string('employee_id')->nullable();
-            $table->string('salary')->nullable();
-            $table->string('overtime_time')->nullable();
-            $table->string('overtime_amount')->nullable();
-            $table->string('overtime')->nullable();
-            $table->string('salary_deduction')->nullable();
-            $table->string('net_amount')->nullable();
-            $table->longText('advance_id')->nullable();
+            $table->string('amount')->nullable();
             $table->timestamps();
         });
     }

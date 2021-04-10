@@ -55,9 +55,8 @@ class ClientController extends Controller
     {
         $client = Client::find($id);
         $collections = Collection::where('client_id', $id)->get();
-        $sells = Sell::where('client_id', $id)->where('status', 'approved')->get();
-        $finishedgoods = Finishedgood::orderBy('id', 'DESC')->get();
-        return view('client.show', compact('client', 'collections', 'sells', 'finishedgoods'));
+        $sells = Sell::where('client_id', $id)->get();
+        return view('client.show', compact('client', 'collections', 'sells'));
     }
 
     public function edit($id)

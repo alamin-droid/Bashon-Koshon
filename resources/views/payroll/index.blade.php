@@ -45,12 +45,8 @@
                                         <tr class="text-center">
                                             <th> ক্রমিক নং</th>
                                             <th> তারিখ</th>
-                                            <th> মাস</th>
                                             <th> কর্মচারী</th>
                                             <th> বেতন</th>
-                                            <th> ওভারটাইম </th>
-                                            <th> বেতন কর্তন </th>
-                                            <th> মোট </th>
                                             <th> অপশন</th>
                                         </tr>
                                         </thead>
@@ -59,12 +55,8 @@
                                             <tr class="text-center">
                                                 <td>{{$loop->index+1}}</td>
                                                 <td>{{date('d-m-Y', strtotime($payroll->date))}}</td>
-                                                <td>{{date('F Y', strtotime($payroll->month))}}</td>
                                                 <td>{{!empty($payroll->employee) ? $payroll->employee->name : 'N/A'}}</td>
-                                                <td>{{!empty($payroll->salary) ? number_format($payroll->salary) : '0'}} .00</td>
-                                                <td>{{!empty($payroll->overtime) ? number_format($payroll->overtime) : '0'}} .00</td>
-                                                <td>{{!empty($payroll->salary_deduction) ? number_format($payroll->salary_deduction) : '0'}} .00</td>
-                                                <td>{{number_format($payroll->net_amount)}} .00</td>
+                                                <td>{{!empty($payroll->amount) ? number_format($payroll->amount) : '0'}} .00</td>
                                                 <td>
                                                     <button type="button" class="btn btn-inverse-primary btn-sm btn-block" onclick="window.location='{{route('payroll.edit',$payroll->id)}}'" data-toggle="tooltip" title="Edit">Edit</button>
                                                     <br/>
@@ -89,8 +81,8 @@
                                                         </div>
                                                     </div>
                                                     <button type="button" class="btn btn-inverse-danger btn-sm btn-block" data-toggle="modal" data-target="#delete_modal_{{$payroll->id}}" data-title="tooltip" title="Delete">Delete</button>
-                                                    <br/>
-                                                    <button type="button" class="btn btn-inverse-info btn-sm btn-block" onclick="window.location='{{route('payroll.payslip',$payroll->id)}}'" data-toggle="tooltip" title="Payslip">Payslip</button>
+{{--                                                    <br/>--}}
+{{--                                                    <button type="button" class="btn btn-inverse-info btn-sm btn-block" onclick="window.location='{{route('payroll.payslip',$payroll->id)}}'" data-toggle="tooltip" title="Payslip">Payslip</button>--}}
                                                 </td>
                                             </tr>
                                         @empty

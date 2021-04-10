@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\ContraJournal;
 use App\Http\Controllers\Controller;
 use App\Owner;
 use Illuminate\Http\Request;
@@ -48,7 +49,14 @@ class OwnerController extends Controller
     public function show($id)
     {
         $show = Owner::find($id);
-        return view('owner.show', compact('show'));
+        $debit = ContraJournal::where('transfer_from', $id)->get(['date', 'debit_amount'])->toArray();
+        $credit = ContraJournal::where('transfer_to', $id)->get(['date', 'credit_amount'])->toArray();
+        $results = array_merge($debit, $credit);
+        usort($results, function($a,$b) {
+            return $a['date'] < $b['date'];
+        });
+        $from = null;
+        return view('owner.show', compact('show', 'results', 'from'));
     }
 
     public function edit($id)
@@ -97,5 +105,19 @@ class OwnerController extends Controller
         Owner::find($id)->delete();
         Session::flash('success', 'Owner deleted Successfully');
         return redirect()->route('owner.index');
+    }
+
+    public function balance_search(Request $request){
+        $id = $request->id;
+        $from = $request->date_from;
+        $to = $request->date_to;
+        $show = Owner::find($id);
+        $debit = ContraJournal::whereDate('date', '>=', $from)->whereDate('date', '<=', $to)->where('transfer_from', $id)->get(['date', 'debit_amount'])->toArray();
+        $credit = ContraJournal::whereDate('date', '>=', $from)->whereDate('date', '<=', $to)->where('transfer_to', $id)->get(['date', 'credit_amount'])->toArray();
+        $results = array_merge($debit, $credit);
+        usort($results, function($a,$b) {
+            return $a['date'] < $b['date'];
+        });
+        return view('owner.show', compact('show', 'results', 'from', 'to'));
     }
 }

@@ -91,16 +91,9 @@ class PaymentController extends Controller
 
     public function supplier_due($id){
         $total_purchased = 0;
-        $purchases = Purchase::where('status', 'approved')->get();
+        $purchases = Purchase::where('supplier_id', $id)->get();
         foreach ($purchases as $purchase){
-            $supplier_name = explode(',',str_replace(str_split('[]""'),'',$purchase->supplier_id));
-            $quantity = explode(',',str_replace(str_split('[]""'),'',$purchase->quantity));
-            $rate = explode(',',str_replace(str_split('[]""'),'',$purchase->rate_per_unit));
-            for($i =0 ;$i<count($supplier_name) ; $i++){
-                if($supplier_name[$i] == $id){
-                    $total_purchased += $quantity[$i] * $rate[$i];
-                }
-            }
+            $total_purchased += $purchase->total;
         }
         $payment = Payment::where('supplier_id', $id)->sum('amount');
         $dues = $total_purchased - $payment;

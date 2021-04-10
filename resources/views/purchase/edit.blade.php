@@ -1,65 +1,83 @@
 @extends('master')
 @section('content')
-    @php
-        $materials_name = explode(',',str_replace(str_split('[]""'),'',$edit->rawmaterial_id));
-        $quantity = explode(',',str_replace(str_split('[]""'),'',$edit->quantity));
-        $unit = explode(',',str_replace(str_split('[]""'),'',$edit->unit));
-        $rate = explode(',',str_replace(str_split('[]""'),'',$edit->rate_per_unit));
-        $supplier_name = explode(',',str_replace(str_split('[]""'),'',$edit->supplier_id));
-    @endphp
-    {!! Form::open(['class' =>'form-sample','route' => ['purchase.update', $edit->id],'method' => 'PATCH', 'enctype' => 'multipart/form-data']) !!}
+    {!! Form::open(['class' =>'form-sample','route' => ['purchase.update', $edit->id],'method' => 'PATCH']) !!}
     <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
-            <div class="page-header" id="bannerClose"><h3 class="page-title"><span class="page-title-icon bg-gradient-primary text-white mr-2"><i class="mdi mdi-rice"></i></span>ক্রয়</h3></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="page-header" id="bannerClose"><h3 class="page-title"><span class="page-title-icon bg-gradient-primary text-white mr-2"><i class="mdi mdi-rice"></i></span>নতুন ক্রয়</h3></div>
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="date">তারিখ</label>
                                 <input type="date" class="form-control" id="date" name="date" value="{{$edit->date}}" required>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label for="how_many_item">ক্রয় সংখ্যা টাইপ করুন</label>
-                                <input type="number" class="form-control" id="how_many_item" value="{{count($materials_name)}}" readonly>
+                                <label for="supplier_id">যোগানদার</label>
+                                <select class="form-control" name="supplier_id" id="supplier_id" >
+                                    <option selected disabled value="">choose an option</option>
+                                    @foreach($suppliers as $supplier)
+                                        <option value="{{$supplier->id}}" @if($edit->supplier_id == $supplier->id) selected @endif>{{$supplier->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label for="add_item">নতুন ক্রয়</label>
-                                <button type="button" class="btn btn-info btn-lg btn-block" id="add_item"><i class="mdi mdi-plus menu-icon"></i></button>
+                                <label for="bag">বস্তার পরিমান</label>
+                                <input type="number" class="form-control" id="bag" name="bag" min="1" value="{{$edit->bag}}" required>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label for="remove_item">ক্রয় মুছে ফেলুন</label>
-                                <button type="button" class="btn btn-danger btn-lg btn-block remove_item" id="remove_item"><i class="mdi mdi-minus menu-icon"></i></button>
+                                <label for="quantity">পরিমান (মণ)</label>
+                                <input type="number" class="form-control" id="quantity" name="quantity" min="1" value="{{$edit->quantity}}" required>
                             </div>
                         </div>
-                    </div>
-                    @for($i = 0 ; $i<count($materials_name) ; $i++)
-                        <div class="row item_list"><div class="col-md-2"><div class="form-group"><label for="materials_{{$i}}" >কাঁচামাল</label><select class="form-control materials" name="materials[]" id="materials_{{$i}}" data-live-search="true" required><option selected disabled value="">Choose an option</option>@foreach($materials as $material)<option value="{{$material->id}}" @if($material->id == $materials_name[$i]) selected @endif data-tokens="{{$material->name}}">{{Str::upper($material->name)}}</option>@endforeach</select></div></div>
-                            <div class="col-md-2"> <div class="form-group"> <label for="quantity_{{$i}}">পরিমাণ</label> <input type="number" class="form-control quantity" id="quantity_{{$i}}" name="quantity[]" value="{{$quantity[$i]}}" required> </div></div>
-                            <div class="col-md-2"><div class="form-group"><label for="unit_{{$i}}" >একক</label><input type="text" class="form-control unit" id="unit_{{$i}}" name="unit[]" value="{{'KG'}}" required></div></div>
-                            <div class="col-md-2"> <div class="form-group"> <label for="rate_{{$i}}">মূল্য/কেজি</label> <input type="number" class="form-control rate" id="rate_{{$i}}" name="rate[]" value="{{$rate[$i]}}" required> </div></div>
-                            <div class="col-md-2"><div class="form-group"><label for="supplier_{{$i}}" >যোগানদার</label><select class="form-control supplier" name="supplier[]" id="supplier_{{$i}}" data-live-search="true" required><option selected disabled value="">Choose an option</option>@foreach($suppliers as $supplier)<option value="{{$supplier->id}}" @if($supplier->id == $supplier_name[$i]) selected @endif data-tokens="{{$supplier->name}}">{{Str::upper($supplier->name)}}</option>@endforeach</select></div></div>
-                            <div class="col-md-2"> <div class="form-group"> <label for="minus_item">&nbsp;</label> <button type="button" class="form-control btn btn-danger text-center minus_item" style="border: none !important;"><i class="mdi mdi-minus menu-icon text-center" style="margin-left: -4px"></i></button> </div></div></div>
-                    @endfor
-                    <div id="append_item">
-
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="unit_price">মূল্য/মণ</label>
+                                <input type="number" class="form-control" id="unit_price" name="unit_price" value="{{$edit->unit_price}}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="total_price">মোট ধানের মূল্য</label>
+                                <input type="number" class="form-control" id="total_price" name="total_price" value="{{$edit->total_price}}" readonly required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="bag_price">ছালার মূল্য</label>
+                                <input type="number" class="form-control" id="bag_price" name="bag_price" value="{{$edit->bag_price}}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="total_bag_price">মোট ছালার মূল্য</label>
+                                <input type="number" class="form-control" id="total_bag_price" name="total_bag_price" value="{{$edit->total_bag_price}}" readonly required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="total">মোট মূল্য </label>
+                                <input type="number" class="form-control" id="total" name="total" value="{{$edit->total}}" readonly required>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="col-md-2"></div>
     </div>
     <br/><br/>
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-            <button type="submit" class="btn btn-gradient-primary btn-lg btn-block"><i class="mdi mdi-rice"></i> আপডেট</button>
+            <button type="submit" class="btn btn-gradient-primary btn-lg btn-block"><i class="mdi mdi-rice"></i> তৈরী করুন </button>
         </div>
     </div>
     {!! Form::close() !!}
@@ -67,40 +85,39 @@
         function _(x){
             return document.getElementById(x);
         }
-        let j = 500000000;
-
-        $(document).on('input','#how_many_item',function(){
-            let how_many_item = $(this).val();
-            let i;
-            let html = '';
-            for(i = 0 ; i < how_many_item ; i++){
-                html += '<div class="row item_list"><div class="col-md-2"><div class="form-group"><label for="materials_'+ i +'" >কাঁচামাল</label><select class="form-control materials" name="materials[]" id="materials_'+ i +'" data-live-search="true" required><option selected disabled value="">Choose an option</option>@foreach($materials as $material)<option value="{{$material->id}}" data-tokens="{{$material->name}}">{{Str::upper($material->name)}}</option>@endforeach</select></div></div>' +
-                    '<div class="col-md-2"> <div class="form-group"> <label for="quantity_'+ i +'">পরিমাণ</label> <input type="number" class="form-control quantity" id="quantity_'+ i +'" name="quantity[]" required> </div></div>' +
-                    '<div class="col-md-2"><div class="form-group"><label for="unit_'+ i +'" >একক</label><input type="text" class="form-control unit" id="unit_'+ i +'" name="unit[]" value={{'KG'}} required></div></div>' +
-                    '<div class="col-md-2"> <div class="form-group"> <label for="rate_'+ i +'">মূল্য/কেজি</label> <input type="number" class="form-control rate" id="rate_'+ i +'" name="rate[]" required> </div></div>' +
-                    '<div class="col-md-2"><div class="form-group"><label for="supplier_'+ i +'" >যোগানদার</label><select class="form-control supplier" name="supplier[]" id="supplier_'+ i +'" data-live-search="true" required><option selected disabled value="">Choose an option</option>@foreach($suppliers as $supplier)<option value="{{$supplier->id}}" data-tokens="{{$supplier->name}}">{{Str::upper($supplier->name)}}</option>@endforeach</select></div></div>' +
-                    '<div class="col-md-2"> <div class="form-group"> <label for="minus_item">&nbsp;</label> <button type="button" class="form-control btn btn-danger text-center minus_item" style="border: none !important;"><i class="mdi mdi-minus menu-icon text-center" style="margin-left: -4px"></i></button> </div></div></div>'
+        $(document).on('input', '#bag', function (){
+            let bag = _('bag').value;
+            let quantity = (bag * 50)/40;
+            _('quantity').value = quantity;
+            calculate();
+        });
+        $(document).on('input', '#quantity', function (){
+            calculate();
+        });
+        $(document).on('input', '#unit_price', function (){
+            calculate();
+        });
+        $(document).on('input', '#bag_price', function (){
+            let bag = _('bag').value;
+            let bag_price = _('bag_price').value;
+            _('total_bag_price').value = bag * bag_price;
+            calculate();
+        });
+        $(document).on('input', '#total_bag_price', function (){
+            calculate();
+        });
+        function calculate(){
+            let unit_price = _('unit_price').value;
+            if(unit_price != ''){
+                let total_price =  _('quantity').value * unit_price;
+                _('total_price').value = total_price;
+                if(_('total_bag_price').value != ''){
+                    _('total').value = total_price + +_('total_bag_price').value;
+                }
+                else{
+                    _('total').value = total_price;
+                }
             }
-            $('#append_item').empty().append(html);
-            calculate();
-        });
-        $(document).on('click','#add_item',function(){
-            let html = '';
-            j += 1;
-            html +=  '<div class="row item_list"><div class="col-md-2"><div class="form-group"><label for="materials_'+ j +'" >কাঁচামাল</label><select class="form-control materials" name="materials[]" id="materials_'+ j +'" data-live-search="true" required><option selected disabled value="">Choose an option</option>@foreach($materials as $material)<option value="{{$material->id}}" data-tokens="{{$material->name}}">{{Str::upper($material->name)}}</option>@endforeach</select></div></div>' +
-                '<div class="col-md-2"> <div class="form-group"> <label for="quantity_'+ j +'">পরিমাণ</label> <input type="number" class="form-control quantity" id="quantity_'+ j +'" name="quantity[]" required> </div></div>' +
-                '<div class="col-md-2"><div class="form-group"><label for="unit_'+ j +'" >একক</label><input type="text" class="form-control unit" id="unit_'+ j +'" name="unit[]" value={{'KG'}} required></div></div>' +
-                '<div class="col-md-2"> <div class="form-group"> <label for="rate_'+ j +'">মূল্য/কেজি</label> <input type="number" class="form-control rate" id="rate_'+ j +'" name="rate[]" required> </div></div>' +
-                '<div class="col-md-2"><div class="form-group"><label for="supplier_'+ j +'" >যোগানদার</label><select class="form-control supplier" name="supplier[]" id="supplier_'+ j +'" data-live-search="true" required><option selected disabled value="">Choose an option</option>@foreach($suppliers as $supplier)<option value="{{$supplier->id}}" data-tokens="{{$supplier->name}}">{{Str::upper($supplier->name)}}</option>@endforeach</select></div></div>' +
-                '<div class="col-md-2"> <div class="form-group"> <label for="minus_item">&nbsp;</label> <button type="button" class="form-control btn btn-danger text-center minus_item" style="border: none !important;"><i class="mdi mdi-minus menu-icon text-center" style="margin-left: -4px"></i></button> </div></div></div>'
-            $('#append_item').append(html);
-            calculate();
-        });
-        $(document).on('click','.minus_item',function(){
-            $(this).parent().parent().parent().remove();
-        });
-        $(document).on('click','.remove_item',function(){
-            $(".item_list:last").remove();
-        });
+        }
     </script>
 @endsection

@@ -12,6 +12,7 @@ Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('/owner', 'Admin\OwnerController');
     Route::get('owner-index', 'Admin\OwnerController@index')->name('owner.index');
     Route::get('owner-create', 'Admin\OwnerController@create')->name('owner.create');
+    Route::get('owner-balance_search', 'Admin\OwnerController@balance_search')->name('owner.balance_search');
 
     Route::resource('factory', 'Admin\FactoryController');
     Route::get('factory-index', 'Admin\FactoryController@index')->name('factory.index');
@@ -127,10 +128,24 @@ Route::get('/home', 'HomeController@index')->name('home');
     Route::get('collection-create', 'Admin\CollectionController@create')->name('collection.create');
     Route::get('collection-search_date', 'Admin\CollectionController@search_date')->name('collection.search_date');
 
+    Route::resource('/expense', 'Admin\ExpenseController');
+    Route::get('expense-index', 'Admin\ExpenseController@index')->name('expense.index');
+    Route::get('expense-create', 'Admin\ExpenseController@create')->name('expense.create');
+    Route::get('expense-search_date', 'Admin\ExpenseController@search_date')->name('expense.search_date');
+
     Route::resource('/administrative', 'Admin\AdministrativeController');
     Route::get('administrative-index', 'Admin\AdministrativeController@index')->name('administrative.index');
     Route::get('administrative-create', 'Admin\AdministrativeController@create')->name('administrative.create');
     Route::get('administrative-search_date', 'Admin\AdministrativeController@search_date')->name('administrative.search_date');
+
+    Route::resource('/family_cost', 'Admin\FamilyCostController');
+    Route::get('family_cost-index', 'Admin\FamilyCostController@index')->name('family_cost.index');
+    Route::get('family_cost-create', 'Admin\FamilyCostController@create')->name('family_cost.create');
+    Route::get('family_cost-search_date', 'Admin\FamilyCostController@search_date')->name('family_cost.search_date');
+
+    Route::resource('/contra_journal', 'Admin\ContraJournalController');
+    Route::get('contra_journal-index', 'Admin\ContraJournalController@index')->name('contra_journal.index');
+    Route::get('contra_journal-create', 'Admin\ContraJournalController@create')->name('contra_journal.create');
 
     Route::get('/supplier_due/{supplier_id}', 'Admin\PaymentController@supplier_due');
     Route::get('/client_id/{cid}', 'Admin\CollectionController@client_due');

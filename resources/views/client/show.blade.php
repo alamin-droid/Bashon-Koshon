@@ -1,24 +1,13 @@
 @extends('master')
 @section('content')
-    @php
-    $total_sell = 0;
-    $sold = 0;
-    foreach ($sells as $sell){
-        $finishedgood_quantity = explode(',',str_replace(str_split('[]""'),'',$sell->quantity));
-        $rate_per_unit = explode(',',str_replace(str_split('[]""'),'',$sell->rate_per_unit));
-        for($i=0; $i<count($finishedgood_quantity) ; $i++){
-            $total_sell += $finishedgood_quantity[$i] * $rate_per_unit[$i];
-        }
-    }
-    @endphp
     <br/><br/>
     <div class="row">
         <div class="col-md-12 text-center"><h3 class="text-info">গ্রাহক জমা/খরচ হিসাব</h3><hr/></div>
     </div>
     <br/><br/><br/>
     <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-lg-6 grid-margin stretch-card">
+        <div class="col-md-2"></div>
+        <div class="col-lg-8 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
@@ -37,16 +26,16 @@
                         <div class="col-md-2"></div>
                         <div class="col-md-2"> মোট বিক্রয় </div>
                         <div class="col-md-4 text-center"> : </div>
-                        <div class="col-md-4"> {{number_format($total_sell)}} /-</div>
+                        <div class="col-md-4"> {{number_format($sells->sum('total'))}}</div>
                         <div class="col-md-2"></div>
                         <div class="col-md-2"> কালেকশন </div>
                         <div class="col-md-4 text-center"> : </div>
-                        <div class="col-md-4"> {{number_format($collections->sum('amount'))}} /-</div>
+                        <div class="col-md-4"> {{number_format($collections->sum('amount') + $sells->sum('payment'))}}</div>
                         <div class="col-md-12"><hr/></div>
                         <div class="col-md-2"></div>
                         <div class="col-md-2"> বকেয়া </div>
                         <div class="col-md-4 text-center"> : </div>
-                        <div class="col-md-4"> {{number_format($total_sell - $collections->sum('amount'))}} /-</div>
+                        <div class="col-md-4"> {{number_format($sells->sum('total') - $collections->sum('amount') + $sells->sum('payment'))}}</div>
                     </div>
                 </div>
             </div>
@@ -64,67 +53,21 @@
                                         <tr class="text-center">
                                             <th>ক্রমিক নং</th>
                                             <th> তারিখ </th>
-                                            <th> পণ্যের বিবরণ </th>
+                                            <th> মোট বিক্রয় </th>
+                                            <th> পেমেন্ট </th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @forelse($sells as $sell)
-                                            @php
-                                                $finishedgood_name = array();
-                                                    $finishedgood_id = explode(',',str_replace(str_split('[]""'),'',$sell->finishedgood_id));
-                                                    $finishedgood_quantity = explode(',',str_replace(str_split('[]""'),'',$sell->quantity));
-                                                    $rate_per_unit = explode(',',str_replace(str_split('[]""'),'',$sell->rate_per_unit));
-                                            @endphp
                                             <tr class="text-center">
                                                 <td>{{ $loop->index + 1 }}</td>
                                                 <td>{{$sell->date}}</td>
-                                                <td>
-                                                    <table class="table table-striped">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>পণ্য</th>
-                                                            <th>পরিমাণ (কেজি)</th>
-                                                            <th>মূল্য/কেজি</th>
-                                                            <th>মোট (৳)</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        @for($i=0; $i<count($finishedgood_id) ; $i++)
-                                                            @foreach($finishedgoods as $finishedgood)
-                                                                @if($finishedgood->id == $finishedgood_id[$i])
-                                                                    @php
-                                                                        $finishedgood_name[] = $finishedgood->name;
-                                                                    @endphp
-                                                                @endif
-                                                            @endforeach
-                                                        @endfor
-                                                        @for($i=0; $i<count($finishedgood_id) ; $i++)
-                                                            <tr>
-                                                                <td>{{$finishedgood_name[$i]}}</td>
-                                                                <td>{{$finishedgood_quantity[$i]}}</td>
-                                                                <td>{{$rate_per_unit[$i]}}.00</td>
-                                                                <td>{{number_format($finishedgood_quantity[$i] * $rate_per_unit[$i])}}.00</td>
-                                                            </tr>
-                                                            @php
-                                                                $sold  += $finishedgood_quantity[$i] * $rate_per_unit[$i];
-                                                            @endphp
-                                                        @endfor
-                                                        </tbody>
-                                                        <tfoot>
-                                                        <tr class="text-center">
-                                                            <td colspan="3">মোট</td>
-                                                            <td>{{number_format($sold)}}.00</td>
-                                                        </tr>
-                                                        </tfoot>
-                                                    </table>
-                                                </td>
+                                                <td>{{number_format($sell->total)}}</td>
+                                                <td>{{number_format($sell->payment)}}</td>
                                             </tr>
-                                            @php
-                                                $sold  = 0;
-                                            @endphp
                                         @empty
                                             <tr>
-                                                <td colspan="3" class="text-center text-info">{{'কোনো বিক্রয়কৃত পণ্য নেই'}}</td>
+                                                <td colspan="4" class="text-center text-info">{{'কোনো বিক্রয়কৃত পণ্য নেই'}}</td>
                                             </tr>
                                         @endforelse
                                         </tbody>
@@ -146,9 +89,8 @@
                                         <tr>
                                             <th class="text-center">ক্রমিক নং</th>
                                             <th class="text-center"> তারিখ</th>
-                                            <th class="text-center">গ্রাহক</th>
-                                            <th class="text-center"> টাকার পরিমান </th>
                                             <th class="text-center"> টাকা প্রদানের মাধ্যম </th>
+                                            <th class="text-center"> টাকার পরিমান </th>
                                         </tr>
                                         </thead>
                                         <tbody id="table">
@@ -156,19 +98,18 @@
                                             <tr>
                                                 <td class="text-center">{{ $loop->index + 1 }}</td>
                                                 <td class="text-center">{{ date('d-m-Y', strtotime($collection->date))}}</td>
-                                                <td class="text-center">{!! (!empty($collection->client_id)) ? (!empty($collection->client) ? $collection->client->name : 'N/A' ):  $collection->retail_sell!!}</td>
-                                                <td class="text-center">{{$collection->amount}}</td>
                                                 <td class="text-center">{{ $collection->mode_of_payment}}</td>
+                                                <td class="text-center">{{$collection->amount}}</td>
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="5" class="text-center text-info">{{'কোনো কালেকশন নেই।'}}</td>
+                                                <td colspan="4" class="text-center text-info">{{'কোনো কালেকশন নেই।'}}</td>
                                             </tr>
                                         @endforelse
                                         </tbody>
                                         <tfoot>
                                         <tr class="text-center">
-                                            <td colspan="4">মোট</td>
+                                            <td colspan="3">মোট</td>
                                             <td>{{number_format($collections->sum('amount'))}}.00</td>
                                         </tr>
                                         </tfoot>

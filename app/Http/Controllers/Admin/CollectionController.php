@@ -102,17 +102,10 @@ class CollectionController extends Controller
         return redirect()->route('collection.index');
     }
     public function client_due($id){
-        $total_sell = 0;
-        $sells = Sell::where('client_id', $id)->where('status', 'approved')->get();
-        foreach($sells as $sell){
-            $quantity = explode(',',str_replace(str_split('[]""'),'',$sell->quantity));
-            $rate_per_unit = explode(',',str_replace(str_split('[]""'),'',$sell->rate_per_unit));
-            for($i = 0 ; $i<count($quantity) ; $i++){
-                $total_sell += $quantity[$i] * $rate_per_unit[$i];
-            }
-        }
+        $sells = Sell::where('client_id', $id)->sum('total');
+        $paid = Sell::where('client_id', $id)->sum('payment');
         $collection = Collection::where('client_id', $id)->sum('amount');
-        $dues = $total_sell - $collection;
+        $dues = $sells - ($paid + $collection);
         return response()->json($dues);
     }
 

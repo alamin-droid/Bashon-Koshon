@@ -8,15 +8,8 @@ class Payroll extends Model
 {
     protected $fillable = [
       'date',
-      'month',
       'employee_id',
-      'salary',
-      'overtime_time',
-      'overtime_amount',
-      'overtime',
-      'salary_deduction',
-      'net_amount',
-      'advance_id',
+      'amount',
     ];
 
     protected $table='payrolls';

@@ -12,52 +12,20 @@
                                 <tr class="text-center">
                                     <th>ক্রমিক নং</th>
                                     <th> তারিখ </th>
-                                    <th> পণ্যের বিবরণ </th>
+                                    <th> client </th>
+                                    <th> total </th>
+                                    <th> paid </th>
                                     <th> অপশন </th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @forelse($sells as $sell)
-                                    @php
-                                        $finishedgood_name = array();
-                                            $finishedgood_id = explode(',',str_replace(str_split('[]""'),'',$sell->finishedgood_id));
-                                            $finishedgood_quantity = explode(',',str_replace(str_split('[]""'),'',$sell->quantity));
-                                            $rate_per_unit = explode(',',str_replace(str_split('[]""'),'',$sell->rate_per_unit));
-                                    @endphp
                                     <tr class="text-center">
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{date('d-m-Y', strtotime($sell->date))}}</td>
-                                        <td>
-                                            <table class="table table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th>পণ্য</th>
-                                                    <th>পরিমাণ (কেজি)</th>
-                                                    <th>মূল্য/কেজি</th>
-                                                    <th>মোট (৳)</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @for($i=0; $i<count($finishedgood_id) ; $i++)
-                                                    @foreach($finishedgoods as $finishedgood)
-                                                        @if($finishedgood->id == $finishedgood_id[$i])
-                                                            @php
-                                                                $finishedgood_name[] = $finishedgood->name;
-                                                            @endphp
-                                                        @endif
-                                                    @endforeach
-                                                @endfor
-                                                @for($i=0; $i<count($finishedgood_id) ; $i++)
-                                                    <tr>
-                                                        <td>{{$finishedgood_name[$i]}}</td>
-                                                        <td>{{$finishedgood_quantity[$i]}}</td>
-                                                        <td>{{$rate_per_unit[$i]}}</td>
-                                                        <td>{{number_format($finishedgood_quantity[$i] * $rate_per_unit[$i])}}.00</td>
-                                                    </tr>
-                                                @endfor
-                                                </tbody>
-                                            </table>
-                                        </td>
+                                        <td> {{!empty($sell->client) ? $sell->client->name : 'N/A'}}</td>
+                                        <td> {{number_format($sell->total)}}</td>
+                                        <td> {{number_format($sell->payment)}}</td>
                                         <td>
                                             <button type="button" class="btn btn-inverse-success btn-sm btn-block" onclick="window.location='{{route('sell.show',$sell->id)}}'" data-toggle="tooltip" title="Invoice">Invoice</button>
                                             <br/>

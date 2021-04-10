@@ -1,28 +1,5 @@
 @extends('master')
 @section('content')
-    @php
-        $finishedgood_name = array();
-        $total = 0;
-        $total_quantity = 0;
-        $total_rate = 0;
-            $finishedgood_id = explode(',',str_replace(str_split('[]""'),'',$sell->finishedgood_id));
-            $finishedgood_quantity = explode(',',str_replace(str_split('[]""'),'',$sell->quantity));
-            $rate_per_unit = explode(',',str_replace(str_split('[]""'),'',$sell->rate_per_unit));
-    @endphp
-    @for($i=0; $i<count($finishedgood_id) ; $i++)
-        @foreach($finishedgoods as $finishedgood)
-            @if($finishedgood->id == $finishedgood_id[$i])
-                @php
-                    $finishedgood_name[] = $finishedgood->name;
-                @endphp
-            @endif
-        @endforeach
-        @php
-            $total += $finishedgood_quantity[$i] * $rate_per_unit[$i];
-            $total_quantity += $finishedgood_quantity[$i];
-            $total_rate += $rate_per_unit[$i];
-        @endphp
-    @endfor
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -47,9 +24,6 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="row">
-                                        <div class="col-sm-4">Party Code</div>
-                                        <div class="col-sm-1">:</div>
-                                        <div class="col-sm-7">{{$sell->client_id}}</div>
                                         <div class="col-sm-4">Party Name</div>
                                         <div class="col-sm-1">:</div>
                                         <div class="col-sm-7">{{!empty($sell->client) ? $sell->client->name : 'N/A'}}</div>
@@ -72,9 +46,6 @@
                                         <div class="col-sm-4">Sales Person</div>
                                         <div class="col-sm-1">:</div>
                                         <div class="col-sm-7">Admin</div>
-                                        <div class="col-sm-4">Gate Pass No</div>
-                                        <div class="col-sm-1">:</div>
-                                        <div class="col-sm-7">{{$gatepass->id}}</div>
                                     </div>
                                 </div>
                             </div>
@@ -90,26 +61,24 @@
                                             <th>Item</th>
                                             <th>Quantity/KG</th>
                                             <th>Rate/Unit</th>
-                                            <th>Total Price</th>
+                                            <th>Sub Total</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @for($i=0; $i<count($finishedgood_id) ; $i++)
+                                        @for($i=0; $i<count($sell->type_of_rice) ; $i++)
                                             <tr class="text-center">
                                                 <td>{{$i + 1}}</td>
-                                                <td>{{$finishedgood_name[$i]}}</td>
-                                                <td>{{$finishedgood_quantity[$i]}}</td>
-                                                <td>{{$rate_per_unit[$i]}}</td>
-                                                <td>{{number_format($finishedgood_quantity[$i] * $rate_per_unit[$i])}}</td>
+                                                <td>{{ !empty($product = \App\Finishedgood::find($sell->type_of_rice[$i])) ? $product->name : 'N/A'  }}</td>
+                                                <td>{{$sell->quantity_kg[$i]}}</td>
+                                                <td>{{$sell->unit_price[$i]}}</td>
+                                                <td>{{number_format($sell->total_price[$i])}}</td>
                                             </tr>
                                         @endfor
                                         </tbody>
                                         <tfoot>
                                         <tr class="text-center">
-                                            <td colspan="2"><b>Total</b></td>
-                                            <td><b>{{$total_quantity}}</b></td>
-                                            <td><b>{{$total_rate}}</b></td>
-                                            <td><b>{{number_format($total)}}</b></td>
+                                            <td colspan="4"><b>Total Price</b></td>
+                                            <td><b>{{ number_format($sell->total) }}</b></td>
                                         </tr>
                                         </tfoot>
                                     </table>
@@ -118,27 +87,22 @@
                         </div>
                         <br/><br/>
                         <div class="row">
-                            <div class="col-sm-6 text-center"><b>Words : {{strtoupper($numberTransformer->toWords($total))}} TK ONLY</b></div>
+                            <div class="col-sm-6 text-center"><b>Words : {{strtoupper($numberTransformer->toWords($sell->total))}} TK ONLY</b></div>
                             <div class="col-sm-6">
-                                <div class="row">
-                                    <div class="col-sm-5"><b>Total Item</b></div>
-                                    <div class="col-sm-1"><b>:</b></div>
-                                    <div class="col-sm-6"><b>{{count($finishedgood_id)}}</b></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-5"><b>Total Quantity</b></div>
-                                    <div class="col-sm-1"><b>:</b></div>
-                                    <div class="col-sm-6"><b>{{$total_quantity}} KG</b></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-5"><b>Total Rate Per Unit</b></div>
-                                    <div class="col-sm-1"><b>:</b></div>
-                                    <div class="col-sm-6"><b>{{$total_rate}}.00</b></div>
-                                </div>
                                 <div class="row">
                                     <div class="col-sm-5"><b>Total Price</b></div>
                                     <div class="col-sm-1"><b>:</b></div>
-                                    <div class="col-sm-6"><b>{{number_format($total)}}.00</b></div>
+                                    <div class="col-sm-6"><b>{{ number_format($sell->total) }}</b></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-5"><b>Total Paid</b></div>
+                                    <div class="col-sm-1"><b>:</b></div>
+                                    <div class="col-sm-6"><b>{{number_format($sell->payment)}}</b></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-5"><b>Total Due</b></div>
+                                    <div class="col-sm-1"><b>:</b></div>
+                                    <div class="col-sm-6"><b>{{number_format($sell->total - $sell->payment)}}</b></div>
                                 </div>
                             </div>
                         </div>

@@ -1,23 +1,8 @@
 @extends('master')
 @section('content')
     @php
-        $finishedgood_name = array();
-        $total_quantity = 0;
-            $finishedgood_id = explode(',',str_replace(str_split('[]""'),'',$sell->finishedgood_id));
-            $finishedgood_quantity = explode(',',str_replace(str_split('[]""'),'',$sell->quantity));
+    $quantity = 0;
     @endphp
-    @for($i=0; $i<count($finishedgood_id) ; $i++)
-        @foreach($finishedgoods as $finishedgood)
-            @if($finishedgood->id == $finishedgood_id[$i])
-                @php
-                    $finishedgood_name[] = $finishedgood->name;
-                @endphp
-            @endif
-        @endforeach
-        @php
-            $total_quantity += $finishedgood_quantity[$i];
-        @endphp
-    @endfor
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -43,9 +28,6 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="row">
-                                        <div class="col-sm-4">গ্রাহক আইডি</div>
-                                        <div class="col-sm-1">:</div>
-                                        <div class="col-sm-7">{{$sell->client->id}}</div>
                                         <div class="col-sm-4">গ্রাহকের নাম</div>
                                         <div class="col-sm-1">:</div>
                                         <div class="col-sm-7">{{!empty($sell->client) ? $sell->client->name : 'N/A'}}</div>
@@ -68,9 +50,6 @@
                                         <div class="col-sm-4">বিক্রয় কর্মী</div>
                                         <div class="col-sm-1">:</div>
                                         <div class="col-sm-7">Authorized</div>
-                                        <div class="col-sm-4">গেট পাস নং</div>
-                                        <div class="col-sm-1">:</div>
-                                        <div class="col-sm-7">{{$gatepass->id}}</div>
                                     </div>
                                 </div>
                             </div>
@@ -88,22 +67,25 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @for($i=0; $i<count($finishedgood_id) ; $i++)
+                                        @for($i=0; $i<count($sell->type_of_rice) ; $i++)
                                             <tr class="text-center">
                                                 <td>{{$i + 1}}</td>
-                                                <td>{{$finishedgood_name[$i]}}</td>
-                                                <td>{{$finishedgood_quantity[$i]}} কেজি</td>
+                                                <td>{{ !empty($product = \App\Finishedgood::find($sell->type_of_rice[$i])) ? $product->name : 'N/A'  }}</td>
+                                                <td>{{$sell->quantity_kg[$i]}}</td>
+                                                @php
+                                                $quantity += $sell->quantity_kg[$i];
+                                                @endphp
                                             </tr>
                                         @endfor
                                         </tbody>
                                         <tfoot>
                                         <tr class="text-center">
                                             <td colspan="2"><b>মোট পরিমাণ</b></td>
-                                            <td><b>{{$total_quantity}} কেজি</b></td>
+                                            <td><b>{{$quantity}} কেজি</b></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td colspan="2"><b>মোট পণ্য</b></td>
-                                            <td><b>{{count($finishedgood_id)}} টি</b></td>
+                                            <td><b>{{count($sell->type_of_rice)}} টি</b></td>
                                         </tr>
                                         </tfoot>
                                     </table>

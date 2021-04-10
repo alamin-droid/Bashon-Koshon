@@ -13,12 +13,14 @@ class CreateSellsTable extends Migration
             $table->bigIncrements('id');
             $table->string('date')->nullable();
             $table->string('client_id')->nullable();
-            $table->string('retail_sell')->nullable();
-            $table->longtext('finishedgood_id')->nullable();
-            $table->longtext('quantity')->nullable();
-            $table->longtext('rate_per_unit')->nullable();
-            $table->longtext('status')->nullable();
-            $table->longtext('warehouse_id')->nullable();
+            $table->longText('type_of_rice')->nullable();
+            $table->longText('quantity')->nullable();
+            $table->longText('quantity_kg')->nullable();
+            $table->longText('unit_price')->nullable();
+            $table->longText('total_price')->nullable();
+            $table->string('total')->nullable();
+            $table->string('payment')->nullable();
+            $table->string('mode_of_payment')->nullable();
             $table->timestamps();
         });
     }

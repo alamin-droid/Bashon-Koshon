@@ -44,9 +44,8 @@ class SupplierController extends Controller
     {
         $supplier = Supplier::find($id);
         $payments = Payment::where('supplier_id', $id)->get();
-        $purchases = Purchase::where('status', 'approved')->get();
-        $materials = Rawmaterial::orderBy('id','DESC')->get();
-        return view('supplier.show', compact('supplier', 'payments', 'purchases', 'materials'));
+        $purchases = Purchase::where('supplier_id', $id)->get();
+        return view('supplier.show', compact('supplier', 'payments', 'purchases'));
     }
 
     public function edit($id)

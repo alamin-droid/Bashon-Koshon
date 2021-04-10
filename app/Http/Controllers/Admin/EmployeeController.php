@@ -54,10 +54,9 @@ class EmployeeController extends Controller
     public function show($id)
     {
         $employee = Employee::find($id);
-        $advances = Advance::where('employee_id', $id)->get();
         $payrolls = Payroll::where('employee_id', $id)->get();
         $attendances = Attendance::orderBy('id', 'DESC')->get();
-        return view('employee.show', compact('employee', 'payrolls', 'advances', 'attendances'));
+        return view('employee.show', compact('employee', 'payrolls', 'attendances'));
     }
 
     public function edit($id)

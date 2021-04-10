@@ -125,16 +125,9 @@
             });
         });
         $(document).on('input', '#amount', function (){
-            let due = _('due_amount').value;
             let amount = $(this).val();
-            if(amount > due){
-                toastr.error("amount exceeds due amount");
-                _('amount').value = '';
-                _('debit_amount').value = '';
-                _('credit_amount').value = '';
-            }
-            _('debit_amount').value = _('amount').value;
-            _('credit_amount').value = _('amount').value;
+            _('debit_amount').value = amount;
+            _('credit_amount').value = amount;
         });
         $(document).on('change', '#mode_of_payment', function (){
             _('overview_mode_of_payment').value = $(this).val();
