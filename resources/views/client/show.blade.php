@@ -26,16 +26,16 @@
                         <div class="col-md-2"></div>
                         <div class="col-md-2"> মোট বিক্রয় </div>
                         <div class="col-md-4 text-center"> : </div>
-                        <div class="col-md-4"> {{number_format($sells->sum('total'))}}</div>
+                        <div class="col-md-4"> {{number_format($sells->sum('total') + $shooters->sum('total'))}}</div>
                         <div class="col-md-2"></div>
                         <div class="col-md-2"> কালেকশন </div>
                         <div class="col-md-4 text-center"> : </div>
-                        <div class="col-md-4"> {{number_format($collections->sum('amount') + $sells->sum('payment'))}}</div>
+                        <div class="col-md-4"> {{number_format($collections->sum('amount') + $sells->sum('payment') + $shooters->sum('payment'))}}</div>
                         <div class="col-md-12"><hr/></div>
                         <div class="col-md-2"></div>
                         <div class="col-md-2"> বকেয়া </div>
                         <div class="col-md-4 text-center"> : </div>
-                        <div class="col-md-4"> {{number_format($sells->sum('total') - $collections->sum('amount') + $sells->sum('payment'))}}</div>
+                        <div class="col-md-4"> {{number_format($sells->sum('total') + $shooters->sum('total') - $collections->sum('amount') - $sells->sum('payment') - $shooters->sum('payment'))}}</div>
                     </div>
                 </div>
             </div>
@@ -141,8 +141,8 @@
                         <tr>
                             <th class="text-center">ক্রমিক নং</th>
                             <th class="text-center">পণ্যের নাম</th>
-                            <th class="text-center">বস্তা সংখ্যা</th>
                             <th class="text-center">পরিমান</th>
+                            <th class="text-center">বস্তা সংখ্যা</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -150,13 +150,19 @@
                             <tr class="text-center">
                                 <td>{{$loop->index + 1}}</td>
                                 <td>{{$row->product_name}}</td>
-                                <td>{{$row->quantity}}</td>
                                 <td>{{($row->quantity_kg == 0) ? $row->quantity.' বস্তা' : $row->quantity_kg.' কেজি'}}</td>
+                                <td>{{$row->quantity}}</td>
                             </tr>
                         @empty
                             <tr class="text-center"><td colspan="4">{{"কোনো বিক্রয়োত্তর পণ্যের তালিকা নেই"}}</td></tr>
                         @endforelse
                         </tbody>
+                        <tfoot>
+                        <tr class="text-center">
+                            <td colspan="3">মোট</td>
+                            <td>{{number_format($rows->sum('quantity'))}} বস্তা</td>
+                        </tr>
+                        </tfoot>
                     </table>
                     <br/><br/>
                     {!! $rows->links() !!}
@@ -165,25 +171,38 @@
         </div>
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
-                <div class="card-body">
-                    <div class="row"><div class="col-md-12"><h4 class="text-center text-info">ব্যালেন্স রিপোর্ট<hr/><br/></h4></div>
-                        <div class="col-sm-5">
-                            <div class="col-sm-12"><h4 class="text-center">দেনা<hr/></h4></div>
-                            <div class="col-sm-12"><h5 class="text-center">{{number_format($sells->sum('total'))}}.00</h5></div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class = "vertical" style="border-left: 2px solid black;height: 80px;position:absolute;left: 50%; "></div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="col-md-12"><h4 class="text-center">পাওনা<hr/></h4></div>
-                            <div class="col-sm-12"><h5 class="text-center">{{number_format($sells->sum('payment') + $collections->sum('amount'))}}.00</h5></div>
-                        </div>
-                        <br/><br/>
-                        <div class="col-md-12"><h4 class="text-center text-info"><hr/></h4></div>
-                        <div class="col-md-4"></div>
-                        <div class="col-md-2"><h4 class="text-center text-info"> মোট : </h4></div>
-                        <div class="col-md-5"><h4 class="text-center text-info"> {{number_format($sells->sum('total') - ($sells->sum('payment') + $collections->sum('amount')))}}.00</h4></div>
-                    </div>
+                <div class="card-body table-responsive">
+                    <h4 class="text-center text-info">শ্যুটারকৃত পণ্যের তালিকা<hr/></h4><br/>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th class="text-center">ক্রমিক নং</th>
+                            <th class="text-center">তারিখ</th>
+                            <th class="text-center">বস্তা সংখ্যা</th>
+                            <th class="text-center">মোট মূল্য</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @forelse($shooters as $shooter)
+                            <tr class="text-center">
+                                <td>{{$loop->index + 1}}</td>
+                                <td>{{date('d-m-Y', strtotime($shooter->date))}}</td>
+                                <td>{{$shooter->after_shooter_qty}}</td>
+                                <td>{{number_format($shooter->total)}}</td>
+                            </tr>
+                        @empty
+                            <tr class="text-center"><td colspan="4">{{"কোনো বিক্রয়োত্তর পণ্যের তালিকা নেই"}}</td></tr>
+                        @endforelse
+                        </tbody>
+                        <tfoot>
+                        <tr class="text-center">
+                            <td colspan="3">মোট</td>
+                            <td>{{number_format($shooters->sum('total'))}}.00</td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                    <br/><br/>
+                    {!! $shooters->links() !!}
                 </div>
             </div>
         </div>

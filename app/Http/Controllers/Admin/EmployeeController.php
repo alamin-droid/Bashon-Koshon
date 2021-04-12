@@ -55,7 +55,7 @@ class EmployeeController extends Controller
     {
         $employee = Employee::find($id);
         $payrolls = Payroll::where('employee_id', $id)->get();
-        $attendances = Attendance::orderBy('id', 'DESC')->get();
+        $attendances = Attendance::orderBy('date', 'DESC')->paginate(5);
         return view('employee.show', compact('employee', 'payrolls', 'attendances'));
     }
 

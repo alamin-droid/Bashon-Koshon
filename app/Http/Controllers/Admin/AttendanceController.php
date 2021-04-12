@@ -16,19 +16,24 @@ class AttendanceController extends Controller
         return view('attendance.index', compact('attendances'));
     }
 
-    public function create()
+    public function entry()
     {
         $employees = Employee::orderBy('id', 'DESC')->get();
-        return view('attendance.create', compact('employees'));
+        return view('attendance.entry', compact('employees'));
+    }
+    public function exit()
+    {
+        $employees = Employee::orderBy('id', 'DESC')->get();
+        return view('attendance.exit', compact('employees'));
     }
 
-    public function store(Request $request)
+    public function entry_store(Request $request)
     {
         $request->validate([
             'date' => 'unique:attendances',
         ]);
         Attendance::create([
-            'date'=>date('Y-m-d'),
+            'date'=>$request->date,
             'employee_id'=>json_encode($request->employee_id),
             'in_time'=>json_encode($request->entry_time),
             'out_time'=>json_encode($request->exit_time),
@@ -36,6 +41,36 @@ class AttendanceController extends Controller
         ]);
         Session::flash('success', 'Attendance Created Successfully');
         return redirect()->route('attendance.index');
+    }
+    public function exit_store(Request $request)
+    {
+
+        $attendance = Attendance::where('date', date('Y-m-d'))->first();
+        if(!empty($attendance)){
+            $total_time =[];
+            $attendance['in_time'] = explode(',',str_replace(str_split('[]""'),'',$attendance->in_time));
+            for($i=0;$i<count($attendance->in_time) ; $i++){
+
+                $time1 = strtotime($attendance->in_time[$i]);
+                $time2 = strtotime($request->exit_time[$i]);
+                $total_time[$i] = ceil(abs(($time1 - $time2)/3600)) ;
+
+                if($attendance->in_time[$i] == 'null'){
+                    $total_time[$i] = 0;
+                }
+
+            }
+            $attendance->update([
+                'out_time'=>json_encode($request->exit_time),
+                'total_time'=>json_encode($total_time),
+            ]);
+            Session::flash('success', 'Attendance Created Successfully');
+            return redirect()->route('attendance.index');
+        }
+        else{
+            Session::flash('error', 'Entry time is not scheduled for this day');
+            return redirect()->back();
+        }
     }
 
     public function show($id)

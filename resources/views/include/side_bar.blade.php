@@ -92,7 +92,8 @@
             </a>
             <div class="collapse" id="attendance-basic">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="{{route('attendance.attendance_create')}}">নতুন হাজিরা</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('attendance.entry')}}">এন্ট্রি টাইম</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('attendance.exit')}}">এক্সিট টাইম</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('attendance.attendance_info')}}">হাজিরা তালিকা</a></li>
                 </ul>
             </div>
@@ -267,8 +268,8 @@
             </a>
             <div class="collapse" id="shooter-basic">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="#">নতুন শ্যুটার</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="#">শ্যুটার তালিকা</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('shooter.create')}}">নতুন শ্যুটার</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('shooter.index')}}">শ্যুটার তালিকা</a></li>
                 </ul>
             </div>
         </li>

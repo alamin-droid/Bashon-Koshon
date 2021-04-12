@@ -34,16 +34,43 @@
                             <table class="table table-striped">
                                 <thead>
                                 <tr class="text-center">
-                                    <th> ক্রমিক নং </th>
                                     <th> তারিখ </th>
+                                    <th> হাজিরা </th>
                                     <th> অপশন </th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @forelse($attendances as $attendance)
+                                    @php
+                                        $attendance['employee_id'] = explode(',',str_replace(str_split('[]""'),'',$attendance->employee_id));
+                                        $attendance['in_time'] = explode(',',str_replace(str_split('[]""'),'',$attendance->in_time));
+                                        $attendance['out_time'] = explode(',',str_replace(str_split('[]""'),'',$attendance->out_time));
+                                        $attendance['total_time'] = explode(',',str_replace(str_split('[]""'),'',$attendance->total_time));
+                                    @endphp
                                     <tr class="text-center">
-                                        <td>{{$loop->index+1}}</td>
                                         <td>{{date('d-m-Y', strtotime($attendance->date))}}</td>
+                                        <td>
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>কর্মচারী</th>
+                                                    <th>এন্ট্রি টাইম</th>
+                                                    <th>এক্সিট টাইম</th>
+                                                    <th>সময়কাল</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @for($i=0; $i<count($attendance->employee_id); $i++)
+                                                <tr>
+                                                    <td>{{!empty($employee = \App\Employee::find($attendance->employee_id[$i])) ? $employee->name : 'N/A' }}</td>
+                                                    <td>{!! ($attendance->in_time[$i] != 'null') ? date('h:i a', strtotime($attendance->in_time[$i]))  : '<h6 class=text-danger>অনুম্পস্থিত</h6>' !!}</td>
+                                                    <td>{!! ($attendance->out_time[$i] != 'null') ? date('h:i a', strtotime($attendance->out_time[$i])) : '<h6 class=text-danger>অনুম্পস্থিত</h6>' !!}</td>
+                                                    <td>{{$attendance->total_time[$i]}}</td>
+                                                </tr>
+                                                @endfor
+                                                </tbody>
+                                            </table>
+                                        </td>
                                         <td>
                                             <button type="button" class="btn btn-primary btn-sm btn-block" onclick="window.location='{{route('attendance.edit',$attendance->id)}}'" data-toggle="tooltip" title="Edit">Edit</button>
                                             <br/>

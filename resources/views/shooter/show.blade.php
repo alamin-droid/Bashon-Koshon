@@ -1,13 +1,13 @@
 @extends('master')
 @section('content')
     @php
-    $quantity = 0;
+    $j =1;
     @endphp
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <div id="print_report">
+                    <div id="print_invoice">
                         <br/><br/>
                         <div class="container">
                             <div class="row">
@@ -24,7 +24,7 @@
                                 <div class="col-sm-12"><h5 class="text-center">মোবাইল :01716-273452, 01918-776304</h5></div>
                                 <br/><br/>
                                 <div class="col-sm-5"></div>
-                                <div class="col-sm-2"><h6 class="text-center" style="border: 2px solid"><b>চালান</b></h6></div>
+                                <div class="col-sm-2"><h6 class="text-center" style="border: 2px solid"><b>ক্যাশ মেমো</b></h6></div>
                                 <div class="col-sm-5"></div>
                             </div>
                             <br/><br/>
@@ -33,23 +33,23 @@
                                     <div class="row">
                                         <div class="col-sm-4">গ্রাহকের নাম</div>
                                         <div class="col-sm-1">:</div>
-                                        <div class="col-sm-7">{{!empty($sell->client) ? $sell->client->name : 'N/A'}}</div>
+                                        <div class="col-sm-7">{{!empty($show->client) ? $show->client->name : 'N/A'}}</div>
                                         <div class="col-sm-4">মোবাইল নাম্বার</div>
                                         <div class="col-sm-1">:</div>
-                                        <div class="col-sm-7">{{!empty($sell->client) ? $sell->client->phone : 'N/A'}}</div>
+                                        <div class="col-sm-7">{{!empty($show->client) ? $show->client->phone : 'N/A'}}</div>
                                         <div class="col-sm-4">ঠিকানা</div>
                                         <div class="col-sm-1">:</div>
-                                        <div class="col-sm-7">{{!empty($sell->client) ? $sell->client->address : 'N/A'}}</div>
+                                        <div class="col-sm-7">{{!empty($show->client) ? $show->client->address : 'N/A'}}</div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="row">
                                         <div class="col-sm-4">তারিখ</div>
                                         <div class="col-sm-1">:</div>
-                                        <div class="col-sm-7">{{$sell->date}}</div>
+                                        <div class="col-sm-7">{{$show->date}}</div>
                                         <div class="col-sm-4">বিক্রয় ক্রমিক নং</div>
                                         <div class="col-sm-1">:</div>
-                                        <div class="col-sm-7">{{$sell->id}}</div>
+                                        <div class="col-sm-7">{{$show->id}}</div>
                                         <div class="col-sm-4">বিক্রয় কর্মী</div>
                                         <div class="col-sm-1">:</div>
                                         <div class="col-sm-7">Authorized</div>
@@ -66,34 +66,57 @@
                                         <tr class="text-center">
                                             <th>ক্রমিক নং</th>
                                             <th>পণ্য</th>
-                                            <th>পরিমাণ</th>
+                                            <th>পরিমাণ/বস্তা</th>
+                                            <th>মূল্য/একক</th>
+                                            <th>সাব-টোটাল</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @for($i=0; $i<count($sell->type_of_rice) ; $i++)
+                                        <tr class="text-center">
+                                            <td>{{$j}}</td>
+                                            <td>শ্যুটারকৃত চাল</td>
+                                            <td>{{$show->after_shooter_qty}}</td>
+                                            <td>{{$show->shooter_price_per_bag}}</td>
+                                            <td>{{$show->shooter_total_price}}</td>
+                                        </tr>
+                                        @for($i=0; $i<count($show->excess_item) ; $i++)
                                             <tr class="text-center">
-                                                <td>{{$i + 1}}</td>
-                                                <td>{{ !empty($product = \App\Finishedgood::find($sell->type_of_rice[$i])) ? $product->name : 'N/A'  }}</td>
-                                                <td>{{($sell->quantity_kg[$i] != 'null') ? $sell->quantity_kg[$i] : $sell->quantity[$i]}}</td>
-                                                @php
-                                                if($sell->quantity_kg[$i] != 'null'){
-                                                    $quantity += $sell->quantity_kg[$i];
-                                                }
-                                                @endphp
+                                                <td>{{++$j}}</td>
+                                                <td>{{ !empty($product = \App\Finishedgood::find($show->excess_item[$i])) ? $product->name : 'অতিরিক্ত পণ্য'  }}</td>
+                                                <td>{{($show->excess_item_qty[$i] != 'null') ? $show->excess_item_qty[$i] : '0'}}</td>
+                                                <td>{{($show->excess_item_price_bag[$i] != 'null') ? $show->excess_item_price_bag[$i] : '0'}}</td>
+                                                <td>{{($show->excess_item_total_price[$i] != 'null') ? '-'.number_format($show->excess_item_total_price[$i]) : '0'}}</td>
                                             </tr>
                                         @endfor
                                         </tbody>
                                         <tfoot>
                                         <tr class="text-center">
-                                            <td colspan="2"><b>মোট পরিমাণ</b></td>
-                                            <td><b>{{$quantity}} কেজি</b></td>
-                                        </tr>
-                                        <tr class="text-center">
-                                            <td colspan="2"><b>মোট পণ্য</b></td>
-                                            <td><b>{{count($sell->type_of_rice)}} টি</b></td>
+                                            <td colspan="4"><b>মোট মূল্য</b></td>
+                                            <td><b>{{ number_format($show->total) }}</b></td>
                                         </tr>
                                         </tfoot>
                                     </table>
+                                </div>
+                            </div>
+                        </div>
+                        <br/><br/>
+                        <div class="row">
+                            <div class="col-sm-6 text-center"><b>কথায় : {{$num_to->bnWord($show->total)}} টাকা মাত্র</b></div>
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-5"><b>মোট মূল্য</b></div>
+                                    <div class="col-sm-1"><b>:</b></div>
+                                    <div class="col-sm-6"><b>{{ number_format($show->total) }}</b></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-5"><b>মোট পরিশোধ</b></div>
+                                    <div class="col-sm-1"><b>:</b></div>
+                                    <div class="col-sm-6"><b>{{number_format($show->payment)}}</b></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-5"><b>মোট বাকেয়া</b></div>
+                                    <div class="col-sm-1"><b>:</b></div>
+                                    <div class="col-sm-6"><b>{{number_format($show->due)}}</b></div>
                                 </div>
                             </div>
                         </div>
@@ -119,7 +142,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <br/>
-                                <input type="button" class="print_button btn-gradient-primary btn-block form-control" onclick="printDiv('print_report')" value="প্রিন্ট স্লিপ" />
+                                <input type="button" class="print_button btn-gradient-primary btn-block form-control" onclick="printDiv('print_invoice')" value="Print" />
                             </div>
                         </div>
                     </div>

@@ -8,6 +8,7 @@ use App\Collection;
 use App\Finishedgood;
 use App\Http\Controllers\Controller;
 use App\Sell;
+use App\Shooter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -57,6 +58,7 @@ class ClientController extends Controller
         $client = Client::find($id);
         $collections = Collection::where('client_id', $id)->paginate(5);
         $sells = Sell::where('client_id', $id)->paginate(5);
+        $shooters = Shooter::where('client_id', $id)->orderBy('id', 'DESC')->paginate(5);
         $sales_lists = Sell::where('client_id', $id)->orderBy('id', 'DESC')->get(['type_of_rice','quantity','quantity_kg']);
         foreach ($sales_lists as $sales_list){
             $product_name = explode(',',str_replace(str_split('[]""'),'',$sales_list['type_of_rice']));
@@ -87,7 +89,7 @@ class ClientController extends Controller
         }
         $rows = ClientRawProduct::orderBy('id','Desc')->paginate(5);
         ClientRawProduct::truncate();
-        return view('client.show', compact('client', 'collections', 'sells', 'rows'));
+        return view('client.show', compact('client', 'collections', 'sells', 'rows', 'shooters'));
     }
 
     public function edit($id)

@@ -76,7 +76,6 @@
                             <table class="table table-striped">
                                 <thead>
                                 <tr class="text-center">
-                                    <th> ক্রমিক নং</th>
                                     <th> তারিখ </th>
                                     <th>এন্ট্রি টাইম</th>
                                     <th> এক্সিট টাইম</th>
@@ -84,7 +83,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @forelse($attendances as $attendance)
+                                @foreach($attendances as $attendance)
                                     <tr class="text-center">
                                         @php
                                             $employee_id = explode(',',str_replace(str_split('[]""'),'',$attendance->employee_id));
@@ -94,22 +93,18 @@
                                         @endphp
                                         @for($i=0; $i<count($employee_id) ; $i++)
                                             @if($employee->id == $employee_id[$i])
-                                            <td>{{$loop->index+1}}</td>
-                                            <td>{{date('d-m-Y', strtotime($attendance->date))}}</td>
-                                            <td>{{$entry_time[$i] == 'null' ? 'অনুপস্থিত' : $entry_time[$i]}}</td>
-                                            <td>{{$exit_time[$i] == 'null' ? 'অনুপস্থিত' : $exit_time[$i]}}</td>
-                                            <td>{{$total_time[$i] == 'null' ? 'অনুপস্থিত' : $total_time[$i]}}</td>
+                                                <td>{!! '<h6 class=text-info>'.date('d-m-Y', strtotime($attendance->date)).'</h6>' !!}</td>
+                                                <td> {!! ($entry_time[$i] != 'null') ? '<h6 class=text-success>'.date('h:i a', strtotime($entry_time[$i])).'</h6>' : '<h6 class=text-danger>অনুম্পস্থিত</h6>' !!}</td>
+                                                <td> {!! ($exit_time[$i] != 'null') ? '<h6 class=text-success>'.date('h:i a', strtotime($exit_time[$i])).'</h6>' : '<h6 class=text-danger>অনুম্পস্থিত</h6>' !!}</td>
+                                                <td>{!! $total_time[$i] == 'null' ? '<h6 class=text-danger>অনুম্পস্থিত</h6>' : '<h6 class=text-success>'.$total_time[$i] .'</h6>'!!}</td>
                                             @endif
                                         @endfor
                                     </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="5" class="text-center text-info">{{'কোনো হাজিরা নেই'}}</td>
-                                    </tr>
-                                @endforelse
+                                @endforeach
                                 </tbody>
                             </table>
                             <br/><br/>
+                            {!! $attendances->links() !!}
                         </div>
                     </div>
                 </div>

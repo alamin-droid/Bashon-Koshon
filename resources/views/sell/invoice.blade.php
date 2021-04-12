@@ -8,12 +8,15 @@
                         <br/><br/>
                         <div class="container">
                             <div class="row">
-                                <div class="col-sm-1"></div>
-                                <div class="col-sm-1 text-right"><img src="{{asset('assets/images/logo/n_islam_logo.png')}}" style="width: 100%;"> </div>
-                                <div class="col-sm-8"><h3 class="text-center">এন ইসলাম অটো রাইস মিল</h3></div>
+                                <div class="col-sm-2 text-right"><img src="{{asset('assets/images/logo/n_islam_logo.png')}}" style="width: 100%; margin-top: -25px"> </div>
+                                <div class="col-sm-8"><h1 class="text-center"> <b> এন ইসলাম অটো রাইস মিল </b></h1></div>
                                 <div class="col-sm-2"></div>
-                                <div class="col-sm-12"><h5 class="text-center">মোঃ নজরুল ইসলাম</h5></div>
-                                <div class="col-sm-12"><h5 class="text-center">উন্নতমানের ধান, আতপ ও সিদ্ধ চাউল বিক্রেতা।</h5></div>
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-8"><h5 class="text-center" style="margin-top: -55px;">প্রোপাইটর : মোঃ নজরুল ইসলাম</h5></div>
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-8"><h5 class="text-center" style="margin-top: -30px;">উন্নতমানের ধান, আতপ ও সিদ্ধ চাউল বিক্রেতা।</h5></div>
+                                <div class="col-sm-2"></div>
                                 <div class="col-sm-12"><h5 class="text-center">ইসলামিয়া মার্কেট, নীচ তলা, সাতবর্গ বাজার, বিজয়নগর, ব্রাহ্মণবাড়িয়া।</h5></div>
                                 <div class="col-sm-12"><h5 class="text-center">মোবাইল :01716-273452, 01918-776304</h5></div>
                                 <br/><br/>
@@ -88,7 +91,7 @@
                         </div>
                         <br/><br/>
                         <div class="row">
-                            <div class="col-sm-6 text-center"><b>কথায় : {{$numto->bnWord($sell->total)}} টাকা মাত্র</b></div>
+                            <div class="col-sm-6 text-center"><b>কথায় : {{$num_to->bnWord($sell->total)}} টাকা মাত্র</b></div>
                             <div class="col-sm-6">
                                 <div class="row">
                                     <div class="col-sm-5"><b>মোট মূল্য</b></div>

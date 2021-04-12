@@ -8,6 +8,7 @@
 <script src="{{asset('assets/js/toastr.min.js')}}"></script>
 <script src="{{asset('assets/js/custom.js')}}"></script>
 <script src="{{asset('assets/js/chart.js')}}"></script>
+<script src="{{asset('assets/js/attendance_view.js')}}"></script>
 <script src="{{asset('assets/js/file-upload.js')}}"></script>
 <script src="{{asset('assets/js/bootstrap-select.min.js')}}"></script>
 <script>

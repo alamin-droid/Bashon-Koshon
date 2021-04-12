@@ -73,8 +73,8 @@ class SellController extends Controller
         $sell['unit_price'] = explode(',',str_replace(str_split('[]""'),'',$sell->unit_price));
         $sell['total_price'] = explode(',',str_replace(str_split('[]""'),'',$sell->total_price));
 
-        $numto = new NumberToBangla();
-        return view('sell.invoice', compact('sell',  'numto'));
+        $num_to = new NumberToBangla();
+        return view('sell.invoice', compact('sell',  'num_to'));
     }
 
     public function edit($id)

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/notification.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css/calender.css')}}"/>
     <link rel="stylesheet" href="{{asset('assets/css/chequebook.css')}}"/>
+    <link rel="stylesheet" href="{{asset('assets/css/attendance_view.css')}}"/>
     <link rel="shortcut icon" href="{{asset('assets/images/logo/setcol-small.png')}}" />
     <script src="{{asset('assets/js/jquery.min.js')}}"></script>
 </head>
