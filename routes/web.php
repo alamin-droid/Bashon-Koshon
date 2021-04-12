@@ -152,4 +152,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('report-balance', 'Admin\ReportController@balance')->name('report.balance');
     Route::get('report-balance-date_search', 'Admin\ReportController@balance_date')->name('report.date_search_balance_sheet');
+
+    Route::get('/reference_pad', function () {return view('template.reference_pad');})->name('ref_pad');
 });

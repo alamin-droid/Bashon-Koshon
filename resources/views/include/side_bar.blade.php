@@ -339,6 +339,18 @@
                 </ul>
             </div>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#template-basic" aria-expanded="false" aria-controls="head-basic">
+                <span class="menu-title">টেমপ্লেট ডিজাইন</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-bank menu-icon"></i>
+            </a>
+            <div class="collapse" id="template-basic">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{route('ref_pad')}}">রেফারেন্স প্যাড</a></li>
+                </ul>
+            </div>
+        </li>
 {{--        <li class="nav-item">--}}
 {{--            <a class="nav-link" data-toggle="collapse" href="#report-basic" aria-expanded="false" aria-controls="head-basic">--}}
 {{--                <span class="menu-title">রিপোর্ট</span>--}}

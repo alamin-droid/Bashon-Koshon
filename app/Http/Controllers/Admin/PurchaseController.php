@@ -36,6 +36,7 @@ class PurchaseController extends Controller
            'total_price'=>$request->total_price,
            'bag_price'=>$request->bag_price,
            'total_bag_price'=>$request->total_bag_price,
+           'extra_expense'=>$request->extra_expense,
            'total'=>$request->total,
         ]);
         Session::flash('success', 'Purchased successfully');
@@ -66,6 +67,7 @@ class PurchaseController extends Controller
             'total_price'=>$request->total_price,
             'bag_price'=>$request->bag_price,
             'total_bag_price'=>$request->total_bag_price,
+            'extra_expense'=>$request->extra_expense,
             'total'=>$request->total,
         ]);
         Session::flash('success', 'Purchase updated successfully');

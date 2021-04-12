@@ -42,19 +42,19 @@
         </div>
     </div>
     <div class="row">
-                <div class="col-lg-6 grid-margin stretch-card">
+        <div class="col-lg-6 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
                             <div class="row table-responsive">
                                 <div class="col-lg-12">
-                                    <h2 class="text-center text-info">বিক্রয় তালিকা<hr/></h2><br/>
+                                    <h4 class="text-center text-info">বিক্রয় তালিকা<hr/></h4><br/>
                                     <table class="table table-striped">
                                         <thead>
                                         <tr class="text-center">
                                             <th>ক্রমিক নং</th>
                                             <th> তারিখ </th>
+                                            <th> বিস্তারিত </th>
                                             <th> মোট বিক্রয় </th>
-                                            <th> পেমেন্ট </th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -62,8 +62,8 @@
                                             <tr class="text-center">
                                                 <td>{{ $loop->index + 1 }}</td>
                                                 <td>{{$sell->date}}</td>
+                                                <td><button type="button" class="btn btn-inverse-success btn-sm btn-block" onclick="window.location='{{route('sell.show',$sell->id)}}'" data-toggle="tooltip" title="Details">Details</button></td>
                                                 <td>{{number_format($sell->total)}}</td>
-                                                <td>{{number_format($sell->payment)}}</td>
                                             </tr>
                                         @empty
                                             <tr>
@@ -71,19 +71,27 @@
                                             </tr>
                                         @endforelse
                                         </tbody>
+                                        <tfoot>
+                                        <tr class="text-center">
+                                            <td colspan="3">মোট</td>
+                                            <td>{{number_format($sells->sum('total'))}}.00</td>
+                                        </tr>
+                                        </tfoot>
                                     </table>
+                                    <br/><br>
+                                    {!! $sells->links() !!}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 grid-margin stretch-card">
+        <div class="col-lg-6 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
                             <div class="row table-responsive">
                                 <div class="col-lg-2 float-right"></div>
                                 <div class="col-lg-12">
-                                    <h2 class="text-center text-info">কালেকশন<hr/></h2><br/>
+                                    <h4 class="text-center text-info">কালেকশন<hr/></h4><br/>
                                     <table class="table table-striped">
                                         <thead>
                                         <tr>
@@ -114,11 +122,70 @@
                                         </tr>
                                         </tfoot>
                                     </table>
+
+                                    <br/><br>
+                                    {!! $collections->links() !!}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
+    </div>
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body table-responsive">
+                    <h4 class="text-center text-info">বিক্রয়োত্তর পণ্যের তালিকা<hr/></h4><br/>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th class="text-center">ক্রমিক নং</th>
+                            <th class="text-center">পণ্যের নাম</th>
+                            <th class="text-center">বস্তা সংখ্যা</th>
+                            <th class="text-center">পরিমান</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @forelse($rows as $row)
+                            <tr class="text-center">
+                                <td>{{$loop->index + 1}}</td>
+                                <td>{{$row->product_name}}</td>
+                                <td>{{$row->quantity}}</td>
+                                <td>{{($row->quantity_kg == 0) ? $row->quantity.' বস্তা' : $row->quantity_kg.' কেজি'}}</td>
+                            </tr>
+                        @empty
+                            <tr class="text-center"><td colspan="4">{{"কোনো বিক্রয়োত্তর পণ্যের তালিকা নেই"}}</td></tr>
+                        @endforelse
+                        </tbody>
+                    </table>
+                    <br/><br/>
+                    {!! $rows->links() !!}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row"><div class="col-md-12"><h4 class="text-center text-info">ব্যালেন্স রিপোর্ট<hr/><br/></h4></div>
+                        <div class="col-sm-5">
+                            <div class="col-sm-12"><h4 class="text-center">দেনা<hr/></h4></div>
+                            <div class="col-sm-12"><h5 class="text-center">{{number_format($sells->sum('total'))}}.00</h5></div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class = "vertical" style="border-left: 2px solid black;height: 80px;position:absolute;left: 50%; "></div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="col-md-12"><h4 class="text-center">পাওনা<hr/></h4></div>
+                            <div class="col-sm-12"><h5 class="text-center">{{number_format($sells->sum('payment') + $collections->sum('amount'))}}.00</h5></div>
+                        </div>
+                        <br/><br/>
+                        <div class="col-md-12"><h4 class="text-center text-info"><hr/></h4></div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-2"><h4 class="text-center text-info"> মোট : </h4></div>
+                        <div class="col-md-5"><h4 class="text-center text-info"> {{number_format($sells->sum('total') - ($sells->sum('payment') + $collections->sum('amount')))}}.00</h4></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

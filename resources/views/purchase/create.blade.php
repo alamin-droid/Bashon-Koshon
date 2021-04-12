@@ -33,38 +33,50 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="quantity">পরিমান (মণ)</label>
-                                <input type="number" class="form-control" id="quantity" name="quantity" min="1" required>
+                                <label for="quantity">ধানের পরিমান</label>
+                                <input type="text" class="form-control" id="quantity" name="quantity" placeholder="মণ" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="unit_price">মূল্য/মণ</label>
-                                <input type="number" class="form-control" id="unit_price" name="unit_price" required>
+                                <input type="text" class="form-control" id="unit_price" name="unit_price" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="total_price">মোট ধানের মূল্য</label>
-                                <input type="number" class="form-control" id="total_price" name="total_price" readonly required>
+                                <input type="text" class="form-control" id="total_price" name="total_price" readonly required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="bag_price">ছালার মূল্য</label>
-                                <input type="number" class="form-control" id="bag_price" name="bag_price" required>
+                                <label for="bag_repeat">ছালার পরিমান</label>
+                                <input type="number" class="form-control" id="bag_repeat" name="bag_repeat" min="1" readonly required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="bag_price">ছালার মূল্য /পিস</label>
+                                <input type="text" class="form-control" id="bag_price" name="bag_price" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="total_bag_price">মোট ছালার মূল্য</label>
-                                <input type="number" class="form-control" id="total_bag_price" name="total_bag_price" readonly required>
+                                <input type="text" class="form-control" id="total_bag_price" name="total_bag_price" readonly required>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="extra_expense">অতিরিক্ত খরচ</label>
+                                <input type="text" class="form-control" id="extra_expense" name="extra_expense">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="total">মোট মূল্য </label>
-                                <input type="number" class="form-control" id="total" name="total" readonly required>
+                                <input type="text" class="form-control" id="total" name="total" readonly required>
                             </div>
                         </div>
                     </div>
@@ -87,6 +99,7 @@
         }
         $(document).on('input', '#bag', function (){
            let bag = _('bag').value;
+           _('bag_repeat').value = bag;
            let quantity = (bag * 50)/40;
            _('quantity').value = quantity;
             calculate();
@@ -106,18 +119,15 @@
         $(document).on('input', '#total_bag_price', function (){
             calculate();
         });
+        $(document).on('input', '#extra_expense', function (){
+            calculate();
+        });
         function calculate(){
             let unit_price = _('unit_price').value;
-            if(unit_price != ''){
-                let total_price =  _('quantity').value * unit_price;
-                _('total_price').value = total_price;
-                if(_('total_bag_price').value != ''){
-                    _('total').value = total_price + +_('total_bag_price').value;
-                }
-                else{
-                    _('total').value = total_price;
-                }
-            }
+            let extra_expense = _('extra_expense').value;
+            let total_price =  _('quantity').value * unit_price;
+            _('total_price').value = total_price;
+            _('total').value = total_price + +_('total_bag_price').value + +extra_expense;
         }
     </script>
 @endsection

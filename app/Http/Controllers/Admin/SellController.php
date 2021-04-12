@@ -11,6 +11,7 @@ use App\Sell;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use NumberToWords\NumberToWords;
+use Rakibhstu\Banglanumber\NumberToBangla;
 
 class SellController extends Controller
 {
@@ -55,6 +56,8 @@ class SellController extends Controller
            'total_price'=>json_encode($request->total_price),
            'total'=>$request->total,
            'payment'=>$request->payment,
+           'due'=>$request->due,
+           'notes'=>$request->notes,
            'mode_of_payment'=>$mode_of_payment,
         ]);
         Session::flash('success', 'Sell is created successfully');
@@ -69,9 +72,9 @@ class SellController extends Controller
         $sell['quantity_kg'] = explode(',',str_replace(str_split('[]""'),'',$sell->quantity_kg));
         $sell['unit_price'] = explode(',',str_replace(str_split('[]""'),'',$sell->unit_price));
         $sell['total_price'] = explode(',',str_replace(str_split('[]""'),'',$sell->total_price));
-        $numberToWords = new NumberToWords();
-        $numberTransformer = $numberToWords->getNumberTransformer('en');
-        return view('sell.invoice', compact('sell',  'numberTransformer'));
+
+        $numto = new NumberToBangla();
+        return view('sell.invoice', compact('sell',  'numto'));
     }
 
     public function edit($id)
@@ -115,6 +118,8 @@ class SellController extends Controller
             'total_price'=>json_encode($request->total_price),
             'total'=>$request->total,
             'payment'=>$request->payment,
+            'due'=>$request->due,
+            'notes'=>$request->notes,
             'mode_of_payment'=>$mode_of_payment,
         ]);
         Session::flash('success', 'Sell is Updated successfully');

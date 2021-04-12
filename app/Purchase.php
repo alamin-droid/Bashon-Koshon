@@ -15,6 +15,7 @@ class Purchase extends Model
       'total_price',
       'bag_price',
       'total_bag_price',
+      'extra_expense',
       'total',
     ];
     protected $table = 'purchases';

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1bdda57815c70a0b7aa836d7e04353e3",
+    "content-hash": "2c53cf1f68c4573f287af986e12aedad",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1664,6 +1664,60 @@
                 "source": "https://github.com/bobthecow/psysh/tree/v0.10.6"
             },
             "time": "2021-01-18T15:53:43+00:00"
+        },
+        {
+            "name": "rakibhstu/number-to-bangla",
+            "version": "v1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RakibDevs/number-to-bangla.git",
+                "reference": "7f676835af2151c77f72bc17022fd877e04daf3e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RakibDevs/number-to-bangla/zipball/7f676835af2151c77f72bc17022fd877e04daf3e",
+                "reference": "7f676835af2151c77f72bc17022fd877e04daf3e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rakibhstu\\Banglanumber\\NumberToBanglaServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rakibhstu\\Banglanumber\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Md. Rakibul Islam",
+                    "email": "rakib1708@gmail.com"
+                }
+            ],
+            "description": "Laravel package to convert English numbers to Bangla number or Bangla text, Bangla month name and Bangla Money Format",
+            "homepage": "https://github.com/rakibdevs/number-to-bangla",
+            "keywords": [
+                "Laravel-number-bangla",
+                "laravel",
+                "number-bangla",
+                "number-month"
+            ],
+            "support": {
+                "issues": "https://github.com/RakibDevs/number-to-bangla/issues",
+                "source": "https://github.com/RakibDevs/number-to-bangla/tree/v1.1"
+            },
+            "time": "2021-01-23T08:47:44+00:00"
         },
         {
             "name": "ramsey/uuid",

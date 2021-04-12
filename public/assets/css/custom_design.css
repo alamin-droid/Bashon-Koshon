@@ -324,7 +324,7 @@ hr{
 @media print{
     @page {
         size: auto;
-        margin: 5mm 5mm;
+        margin: 5mm 15mm 5mm;
     }
     .date{
         margin-left: 300px;
@@ -380,6 +380,12 @@ hr{
         position: fixed;
         bottom: 10%;
         width: 100%;
+    }
+    .footer_reference {
+        position: fixed;
+        bottom: 2%;
+        width: 100%;
+        background-color: #f59535
     }
 }
 

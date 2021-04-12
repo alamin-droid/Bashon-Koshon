@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Client;
+use App\ClientRawProduct;
 use App\Collection;
 use App\Finishedgood;
 use App\Http\Controllers\Controller;
@@ -54,9 +55,39 @@ class ClientController extends Controller
     public function show($id)
     {
         $client = Client::find($id);
-        $collections = Collection::where('client_id', $id)->get();
-        $sells = Sell::where('client_id', $id)->get();
-        return view('client.show', compact('client', 'collections', 'sells'));
+        $collections = Collection::where('client_id', $id)->paginate(5);
+        $sells = Sell::where('client_id', $id)->paginate(5);
+        $sales_lists = Sell::where('client_id', $id)->orderBy('id', 'DESC')->get(['type_of_rice','quantity','quantity_kg']);
+        foreach ($sales_lists as $sales_list){
+            $product_name = explode(',',str_replace(str_split('[]""'),'',$sales_list['type_of_rice']));
+            $quantity = explode(',',str_replace(str_split('[]""'),'',$sales_list['quantity']));
+            $quantity_kg = explode(',',str_replace(str_split('[]""'),'',$sales_list['quantity_kg']));
+
+            for($i = 0 ; $i < count($product_name) ; $i++){
+                if($quantity_kg[$i] == 'null'){
+                    $quantity_kg[$i] = 0;
+                }
+                $p = Finishedgood::find($product_name[$i])->name;
+                $check = ClientRawProduct::where('product_name',$p)->first();
+                if(empty($check)){
+                    ClientRawProduct::create([
+                        'product_name' => $p,
+                        'quantity' => $quantity[$i],
+                        'quantity_kg' => $quantity_kg[$i],
+                    ]);
+                }else{
+                    $q = $check->quantity + $quantity[$i];
+                    $q_kg = $check->quantity_kg + $quantity_kg[$i];
+                    $check->update([
+                        'quantity' => $q,
+                        'quantity_kg' => $q_kg,
+                    ]);
+                }
+            }
+        }
+        $rows = ClientRawProduct::orderBy('id','Desc')->paginate(5);
+        ClientRawProduct::truncate();
+        return view('client.show', compact('client', 'collections', 'sells', 'rows'));
     }
 
     public function edit($id)

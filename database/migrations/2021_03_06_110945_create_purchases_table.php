@@ -19,6 +19,7 @@ class CreatePurchasesTable extends Migration
             $table->string('total_price')->nullable();
             $table->string('bag_price')->nullable();
             $table->string('total_bag_price')->nullable();
+            $table->string('extra_expense')->nullable();
             $table->string('total')->nullable();
             $table->timestamps();
         });

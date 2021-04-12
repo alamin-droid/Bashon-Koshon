@@ -20,6 +20,8 @@ class CreateSellsTable extends Migration
             $table->longText('total_price')->nullable();
             $table->string('total')->nullable();
             $table->string('payment')->nullable();
+            $table->string('due')->nullable();
+            $table->string('notes')->nullable();
             $table->string('mode_of_payment')->nullable();
             $table->timestamps();
         });

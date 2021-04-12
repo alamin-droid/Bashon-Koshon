@@ -16,6 +16,8 @@ class Sell extends Model
       'total_price',
       'total',
       'payment',
+      'due',
+      'notes',
       'mode_of_payment',
     ];
     protected $table = 'sells';

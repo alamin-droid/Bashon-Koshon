@@ -387,6 +387,69 @@
     </div>
 </div>
 
+<div class="categories-shop">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="title-all text-center">
+                    <h1>Associate Clients & Partners<hr class="hr_style"/></h1>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+            <div class="instagram-box">
+                <div class="main-instagram owl-carousel owl-theme">
+                    <div class="item">
+                        <div class="ins-inner-box">
+                            <img src="{{asset('assets/frontend/images/partners/ab_bank.png')}}" alt="" />
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ins-inner-box">
+                            <img src="{{asset('assets/frontend/images/partners/adb.png')}}" alt="" />
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ins-inner-box">
+                            <img src="{{asset('assets/frontend/images/partners/al_arafah.png')}}" alt="" />
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ins-inner-box">
+                            <img src="{{asset('assets/frontend/images/partners/bangladesh Krishi Bank.png')}}" alt="" />
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ins-inner-box">
+                            <img src="{{asset('assets/frontend/images/partners/bangladesh_bank.png')}}" alt="" />
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ins-inner-box">
+                            <img src="{{asset('assets/frontend/images/partners/idlc.png')}}" alt="" />
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ins-inner-box">
+                            <img src="{{asset('assets/frontend/images/partners/Janata_Bank.png')}}" alt="" />
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ins-inner-box">
+                            <img src="{{asset('assets/frontend/images/partners/pubali_bank.png')}}" alt="" />
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ins-inner-box">
+                            <img src="{{asset('assets/frontend/images/partners/ucbl.jpg')}}" alt="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
 <footer>
     <div class="footer-main">
         <div class="container">
@@ -430,7 +493,6 @@
         </div>
     </div>
 </footer>
-
 <div class="footer-copyright">
     <p class="footer-company">All Rights Reserved. &copy; 2021 N.Islam Autorice Mill. Design By :
         <a href="http://setcolbd.com/">Skies Engineering and Technologies</a></p>

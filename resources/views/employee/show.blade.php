@@ -86,8 +86,6 @@
                                 <tbody>
                                 @forelse($attendances as $attendance)
                                     <tr class="text-center">
-                                        <td>{{$loop->index+1}}</td>
-                                        <td>{{date('d-m-Y', strtotime($attendance->date))}}</td>
                                         @php
                                             $employee_id = explode(',',str_replace(str_split('[]""'),'',$attendance->employee_id));
                                             $entry_time = explode(',',str_replace(str_split('[]""'),'',$attendance->in_time));
@@ -96,6 +94,8 @@
                                         @endphp
                                         @for($i=0; $i<count($employee_id) ; $i++)
                                             @if($employee->id == $employee_id[$i])
+                                            <td>{{$loop->index+1}}</td>
+                                            <td>{{date('d-m-Y', strtotime($attendance->date))}}</td>
                                             <td>{{$entry_time[$i] == 'null' ? 'অনুপস্থিত' : $entry_time[$i]}}</td>
                                             <td>{{$exit_time[$i] == 'null' ? 'অনুপস্থিত' : $exit_time[$i]}}</td>
                                             <td>{{$total_time[$i] == 'null' ? 'অনুপস্থিত' : $total_time[$i]}}</td>
@@ -109,6 +109,7 @@
                                 @endforelse
                                 </tbody>
                             </table>
+                            <br/><br/>
                         </div>
                     </div>
                 </div>

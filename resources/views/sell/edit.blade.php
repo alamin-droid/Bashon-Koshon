@@ -21,41 +21,6 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="total">মোট মূল্য</label>
-                                    <input type="number" class="form-control" name="total" id="total" value="{{$edit->total}}" readonly required>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="payment">payment</label>
-                                    <input type="number" class="form-control" name="payment" id="payment" value="{{$edit->payment}}" required>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="mode_of_payment" >mode_of_payment</label>
-                                    <select class="form-control" name="mode_of_payment" id="mode_of_payment" required>
-                                        <option selected disabled value="">Choose an option</option>
-                                        <option value="1" @if($edit->mode_of_payment == 'Cash') selected @endif>Cash</option>
-                                        <option value="2" @if($edit->mode_of_payment != 'Cash') selected @endif>Bank</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3" id="bank_field" @if($edit->mode_of_payment == 'Cash') style="display: none" @endif>
-                                <div class="form-group">
-                                    <label for="bank_account" >bank</label>
-                                    <select class="form-control" name="bank_account" id="bank_account">
-                                        <option selected disabled value="">Choose an option</option>
-                                        @foreach($banks as $bank)
-                                            <option value="{{$bank->account}}" @if($edit->mode_of_payment == $bank->account) selected @endif>{{$bank->account}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
                         @for($i = 0 ; $i<count($edit->type_of_rice) ;$i++)
                         <div class="row">
                             <div class="col-md-2">
@@ -104,6 +69,53 @@
                         <div id="append_item">
 
                         </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="total">মোট মূল্য</label>
+                                    <input type="number" class="form-control" name="total" id="total" value="{{$edit->total}}" readonly required>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="due">বাকী</label>
+                                    <input type="text" class="form-control" name="due" id="due" value="{{$edit->due}}" readonly required>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="payment">পেমেন্ট</label>
+                                    <input type="number" class="form-control" name="payment" id="payment" value="{{$edit->payment}}" required>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="mode_of_payment" >mode_of_payment</label>
+                                    <select class="form-control" name="mode_of_payment" id="mode_of_payment" required>
+                                        <option selected disabled value="">Choose an option</option>
+                                        <option value="1" @if($edit->mode_of_payment == 'Cash') selected @endif>Cash</option>
+                                        <option value="2" @if($edit->mode_of_payment != 'Cash') selected @endif>Bank</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4" id="bank_field" @if($edit->mode_of_payment == 'Cash') style="display: none" @endif>
+                                <div class="form-group">
+                                    <label for="bank_account" >bank</label>
+                                    <select class="form-control" name="bank_account" id="bank_account">
+                                        <option selected disabled value="">Choose an option</option>
+                                        @foreach($banks as $bank)
+                                            <option value="{{$bank->account}}" @if($edit->mode_of_payment == $bank->account) selected @endif>{{$bank->account}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="note">Notes</label>
+                                    <textarea class="form-control" id="notes" name="notes" rows="4">{{$edit->notes}}</textarea>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -136,8 +148,14 @@
             let string = $(this).attr('id');
             let split = string.split('_');
             let id = split[1];
+            let goods = _('finished_good_id_' +id).value;
             let quantity_kg = quantity * 50;
-            _('quantity_kg_' + id).value = quantity_kg;
+            if(goods == '5'){
+                _('quantity_kg_' + id).value = 'null';
+            }
+            else{
+                _('quantity_kg_' + id).value = quantity_kg;
+            }
             calculate();
         });
         $(document).on('input', '.unit_price', function (){
@@ -149,12 +167,17 @@
             _('total_price_' + id).value = qty * unit_price;
             calculate();
         });
+        $(document).on('input', '#payment', function (){
+            calculate();
+        });
         function calculate(){
             let sum = 0;
+            let payment = _('payment').value;
             $('.total_price').each(function(){
                 sum += + $(this).val();
             });
             _('total').value = sum;
+            _('due').value = sum - +payment;
         }
         $(document).on('change', '#mode_of_payment', function (){
             let string = $(this).val();

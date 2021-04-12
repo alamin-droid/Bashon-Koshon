@@ -71,9 +71,11 @@
                                             <tr class="text-center">
                                                 <td>{{$i + 1}}</td>
                                                 <td>{{ !empty($product = \App\Finishedgood::find($sell->type_of_rice[$i])) ? $product->name : 'N/A'  }}</td>
-                                                <td>{{$sell->quantity_kg[$i]}}</td>
+                                                <td>{{($sell->quantity_kg[$i] != 'null') ? $sell->quantity_kg[$i] : $sell->quantity[$i]}}</td>
                                                 @php
-                                                $quantity += $sell->quantity_kg[$i];
+                                                if($sell->quantity_kg[$i] != 'null'){
+                                                    $quantity += $sell->quantity_kg[$i];
+                                                }
                                                 @endphp
                                             </tr>
                                         @endfor
