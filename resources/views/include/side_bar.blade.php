@@ -94,23 +94,23 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="{{route('attendance.entry')}}">এন্ট্রি টাইম</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{route('attendance.exit')}}">এক্সিট টাইম</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{route('attendance.attendance_info')}}">হাজিরা তালিকা</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('attendance.index')}}">হাজিরা তালিকা</a></li>
                 </ul>
             </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#raw_materials-basic" aria-expanded="false" aria-controls="ui-basic">
-                <span class="menu-title">কাঁচা মাল</span>
-                <i class="menu-arrow"></i>
-                <i class="mdi mdi-rice menu-icon"></i>
-            </a>
-            <div class="collapse" id="raw_materials-basic">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="{{route('rawmaterials.create')}}">নতুন কাঁচা মাল</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="{{route('rawmaterials.index')}}">কাঁচা মাল তালিকা</a></li>
-                </ul>
-            </div>
-        </li>
+{{--        <li class="nav-item">--}}
+{{--            <a class="nav-link" data-toggle="collapse" href="#raw_materials-basic" aria-expanded="false" aria-controls="ui-basic">--}}
+{{--                <span class="menu-title">কাঁচা মাল</span>--}}
+{{--                <i class="menu-arrow"></i>--}}
+{{--                <i class="mdi mdi-rice menu-icon"></i>--}}
+{{--            </a>--}}
+{{--            <div class="collapse" id="raw_materials-basic">--}}
+{{--                <ul class="nav flex-column sub-menu">--}}
+{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('rawmaterials.create')}}">নতুন কাঁচা মাল</a></li>--}}
+{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('rawmaterials.index')}}">কাঁচা মাল তালিকা</a></li>--}}
+{{--                </ul>--}}
+{{--            </div>--}}
+{{--        </li>--}}
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#finished_goods-basic" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">পণ্য</span>
@@ -124,19 +124,19 @@
                 </ul>
             </div>
         </li>
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" data-toggle="collapse" href="#production-basic" aria-expanded="false" aria-controls="ui-basic">--}}
-{{--                <span class="menu-title">উৎপাদন</span>--}}
-{{--                <i class="menu-arrow"></i>--}}
-{{--                <i class="mdi mdi-rice menu-icon"></i>--}}
-{{--            </a>--}}
-{{--            <div class="collapse" id="production-basic">--}}
-{{--                <ul class="nav flex-column sub-menu">--}}
-{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('production.create')}}">নতুন উৎপাদন</a></li>--}}
-{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('production.index')}}">উৎপাদন তালিকা</a></li>--}}
-{{--                </ul>--}}
-{{--            </div>--}}
-{{--        </li>--}}
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#production-basic" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title">উৎপাদন</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-rice menu-icon"></i>
+            </a>
+            <div class="collapse" id="production-basic">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{route('production.create')}}">নতুন উৎপাদন</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('production.index')}}">উৎপাদন তালিকা</a></li>
+                </ul>
+            </div>
+        </li>
         @php
             $warehouses = \App\Warehouse::orderBy('id','DESC')->get();
         @endphp
@@ -148,7 +148,7 @@
             </a>
             <div class="collapse" id="warehouse-basic">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="{{route('warehouse.index')}}">গোডাউন তালিকা</a></li>
+{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('warehouse.index')}}">গোডাউন তালিকা</a></li>--}}
                     @foreach($warehouses as $warehouse)
                         <li class="nav-item"> <a class="nav-link" href="{{route('warehouse.warehouse_details', $warehouse->id)}}">{{$warehouse->name}}</a></li>
                     @endforeach
@@ -286,32 +286,32 @@
                 </ul>
             </div>
         </li>
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" data-toggle="collapse" href="#administrative-basic" aria-expanded="false" aria-controls="head-basic">--}}
-{{--                <span class="menu-title">দাপ্তরিক খরচ</span>--}}
-{{--                <i class="menu-arrow"></i>--}}
-{{--                <i class="mdi mdi-currency-usd menu-icon"></i>--}}
-{{--            </a>--}}
-{{--            <div class="collapse" id="administrative-basic">--}}
-{{--                <ul class="nav flex-column sub-menu">--}}
-{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('administrative.create')}}">নতুন দাপ্তরিক খরচ</a></li>--}}
-{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('administrative.index')}}">দাপ্তরিক খরচ তালিকা</a></li>--}}
-{{--                </ul>--}}
-{{--            </div>--}}
-{{--        </li>--}}
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" data-toggle="collapse" href="#family-basic" aria-expanded="false" aria-controls="head-basic">--}}
-{{--                <span class="menu-title">পারিবারিক খরচ</span>--}}
-{{--                <i class="menu-arrow"></i>--}}
-{{--                <i class="mdi mdi-currency-usd menu-icon"></i>--}}
-{{--            </a>--}}
-{{--            <div class="collapse" id="family-basic">--}}
-{{--                <ul class="nav flex-column sub-menu">--}}
-{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('family_cost.create')}}">নতুন পারিবারিক খরচ</a></li>--}}
-{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('family_cost.index')}}">পারিবারিক খরচ তালিকা</a></li>--}}
-{{--                </ul>--}}
-{{--            </div>--}}
-{{--        </li>--}}
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#administrative-basic" aria-expanded="false" aria-controls="head-basic">
+                <span class="menu-title">দাপ্তরিক খরচ</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-currency-usd menu-icon"></i>
+            </a>
+            <div class="collapse" id="administrative-basic">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{route('administrative.create')}}">নতুন দাপ্তরিক খরচ</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('administrative.index')}}">দাপ্তরিক খরচ তালিকা</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#family-basic" aria-expanded="false" aria-controls="head-basic">
+                <span class="menu-title">পারিবারিক খরচ</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-currency-usd menu-icon"></i>
+            </a>
+            <div class="collapse" id="family-basic">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{route('family_cost.create')}}">নতুন পারিবারিক খরচ</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('family_cost.index')}}">পারিবারিক খরচ তালিকা</a></li>
+                </ul>
+            </div>
+        </li>
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#contra_journal-basic" aria-expanded="false" aria-controls="head-basic">
                 <span class="menu-title">কন্ট্রা জার্নাল</span>
@@ -352,18 +352,19 @@
                 </ul>
             </div>
         </li>
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" data-toggle="collapse" href="#report-basic" aria-expanded="false" aria-controls="head-basic">--}}
-{{--                <span class="menu-title">রিপোর্ট</span>--}}
-{{--                <i class="menu-arrow"></i>--}}
-{{--                <i class="mdi mdi-book-open-outline menu-icon"></i>--}}
-{{--            </a>--}}
-{{--            <div class="collapse" id="report-basic">--}}
-{{--                <ul class="nav flex-column sub-menu">--}}
-{{--                    <li class="nav-item"> <a class="nav-link" href="{{route('report.balance')}}">ব্যালেন্স রিপোর্ট</a></li>--}}
-{{--                </ul>--}}
-{{--            </div>--}}
-{{--        </li>--}}
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#report-basic" aria-expanded="false" aria-controls="head-basic">
+                <span class="menu-title">রিপোর্ট</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-book-open-outline menu-icon"></i>
+            </a>
+            <div class="collapse" id="report-basic">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{route('report.balance')}}">ব্যালেন্স রিপোর্ট</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{route('report.godown')}}">গোডাউন রিপোর্ট</a></li>
+                </ul>
+            </div>
+        </li>
 
         {{--        Accounting Section Ends--}}
     </ul>

@@ -8,13 +8,13 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="date">তারিখ</label>
                                 <input type="date" class="form-control" id="date" name="date" required>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="supplier_id">যোগানদার</label>
                                 <select class="form-control" name="supplier_id" id="supplier_id" >
@@ -25,12 +25,30 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="product" >পণ্য</label>
+                                <select class="form-control" name="product" id="product" required>
+                                    <option selected disabled value="">Choose an option</option>
+                                    @foreach($finished_goods as $finished_good)
+                                        <option value="{{$finished_good->id}}">{{$finished_good->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="bag">বস্তার পরিমান</label>
                                 <input type="number" class="form-control" id="bag" name="bag" min="1" required>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="quantity">ধানের পরিমান</label>
@@ -67,6 +85,13 @@
                                 <input type="text" class="form-control" id="total_bag_price" name="total_bag_price" readonly required>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="extra_expense">অতিরিক্ত খরচ</label>
@@ -88,9 +113,8 @@
     <br/><br/>
     <div class="row">
         <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <button type="submit" class="btn btn-gradient-primary btn-lg btn-block"><i class="mdi mdi-rice"></i> তৈরী করুন </button>
-        </div>
+        <div class="col-md-6"><button type="submit" class="btn btn-gradient-primary btn-lg btn-block"><i class="mdi mdi-rice"></i> তৈরী করুন </button></div>
+        <div class="col-md-3"></div>
     </div>
     {!! Form::close() !!}
     <script type="text/javascript">
@@ -98,10 +122,10 @@
             return document.getElementById(x);
         }
         $(document).on('input', '#bag', function (){
-           let bag = _('bag').value;
-           _('bag_repeat').value = bag;
-           let quantity = (bag * 50)/40;
-           _('quantity').value = quantity;
+            let bag = _('bag').value;
+            _('bag_repeat').value = bag;
+            let quantity = (bag * 50)/40;
+            _('quantity').value = quantity;
             calculate();
         });
         $(document).on('input', '#quantity', function (){

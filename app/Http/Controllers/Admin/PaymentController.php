@@ -90,13 +90,9 @@ class PaymentController extends Controller
     }
 
     public function supplier_due($id){
-        $total_purchased = 0;
-        $purchases = Purchase::where('supplier_id', $id)->get();
-        foreach ($purchases as $purchase){
-            $total_purchased += $purchase->total;
-        }
+        $purchased = Purchase::where('supplier_id', $id)->sum('total') - Purchase::where('supplier_id', $id)->sum('extra_expense');
         $payment = Payment::where('supplier_id', $id)->sum('amount');
-        $dues = $total_purchased - $payment;
+        $dues = $purchased - $payment;
         return response()->json($dues);
     }
 

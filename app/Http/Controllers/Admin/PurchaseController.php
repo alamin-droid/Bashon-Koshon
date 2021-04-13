@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Finishedgood;
 use App\Http\Controllers\Controller;
 use App\Purchase;
 use App\Rawmaterial;
@@ -22,7 +23,8 @@ class PurchaseController extends Controller
     public function create()
     {
         $suppliers = Supplier::orderBy('id', 'DESC')->get();
-        return view('purchase.create', compact( 'suppliers'));
+        $finished_goods = Finishedgood::orderBy('id', 'DESC')->get();
+        return view('purchase.create', compact( 'suppliers', 'finished_goods'));
     }
 
     public function store(Request $request)
@@ -30,6 +32,7 @@ class PurchaseController extends Controller
         Purchase::create([
            'date'=>$request->date,
            'supplier_id'=>$request->supplier_id,
+           'product'=>$request->product,
            'bag'=>$request->bag,
            'quantity'=>$request->quantity,
            'unit_price'=>$request->unit_price,
@@ -52,7 +55,8 @@ class PurchaseController extends Controller
     {
         $edit = Purchase::find($id);
         $suppliers = Supplier::orderBy('id', 'DESC')->get();
-        return view('purchase.edit', compact('edit', 'suppliers'));
+        $finished_goods = Finishedgood::orderBy('id', 'DESC')->get();
+        return view('purchase.edit', compact('edit', 'suppliers', 'finished_goods'));
     }
 
     public function update(Request $request, $id)
@@ -61,6 +65,7 @@ class PurchaseController extends Controller
         $update->update([
             'date'=>$request->date,
             'supplier_id'=>$request->supplier_id,
+            'product'=>$request->product,
             'bag'=>$request->bag,
             'quantity'=>$request->quantity,
             'unit_price'=>$request->unit_price,

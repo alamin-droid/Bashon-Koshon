@@ -13,56 +13,18 @@
                                     <th>ক্রমিক নং </th>
                                     <th> তারিখ </th>
                                     <th> উৎপাদিত পণ্য </th>
-                                    <th> উৎপাদিত পণ্যের পরিমাণ</th>
-                                    <th> উৎপাদিত পণ্যের একক </th>
-                                    <th> কাঁচামালের বিবরণ </th>
+                                    <th> উৎপাদিত পণ্যের পরিমাণ / বস্তা</th>
                                     <th> গোডাউন</th>
                                     <th> অপশন </th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @forelse($productions as $production)
-                                    @php
-                                    $raw_materials = array();
-                                        $rawmaterials_id = explode(',',str_replace(str_split('[]""'),'',$production->rawmaterials_id));
-                                        $rawmaterials_quantity = explode(',',str_replace(str_split('[]""'),'',$production->rawmaterials_quantity));
-                                        $rawmaterials_unit = explode(',',str_replace(str_split('[]""'),'',$production->rawmaterials_unit));
-                                    @endphp
                                     <tr class="text-center">
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{$production->date}}</td>
                                         <td>{{!empty($production->finishedgood) ? $production->finishedgood->name : 'N/A'}}</td>
                                         <td>{{$production->finishedgood_quantity}}</td>
-                                        <td>{{'KG'}}</td>
-                                        <td>
-                                            <table class="table table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th>কাঁচামাল</th>
-                                                    <th>একক</th>
-                                                    <th>পরিমাণ</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @for($i=0; $i<count($rawmaterials_id) ; $i++)
-                                                    @foreach($rawmaterials as $rawmaterial)
-                                                        @if($rawmaterial->id == $rawmaterials_id[$i])
-                                                            @php
-                                                                $raw_materials[] = $rawmaterial->name;
-                                                            @endphp
-                                                        @endif
-                                                    @endforeach
-                                                @endfor
-                                                @for($i=0; $i<count($rawmaterials_id) ; $i++)
-                                                    <tr>
-                                                        <td>{{$raw_materials[$i]}}</td>
-                                                        <td>{{$rawmaterials_quantity[$i]}}</td>
-                                                        <td>{{$rawmaterials_unit[$i]}}</td>
-                                                    </tr>
-                                                @endfor
-                                                </tbody>
-                                            </table>
-                                        </td>
                                         <td>{{!empty($production->warehouse) ? $production->warehouse->name : 'N/A'}}</td>
                                         <td>
                                             {{--                                            <button type="button" class="btn btn-inverse-primary btn-sm btn-block" onclick="window.location='{{route('factory.show',$factory->id)}}'" data-toggle="tooltip" title="Show">Show</button>--}}

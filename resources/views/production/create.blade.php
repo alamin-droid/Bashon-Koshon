@@ -22,42 +22,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="finishedgood_quantity">পরিমাণ (কেজি)</label>
+                            <label class="finishedgood_quantity">পরিমাণ (বস্তা)</label>
                             <input type="number" class="form-control" name="finishedgood_quantity" id="finishedgood_quantity" required>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="rawmaterials_id" >কাঁচামাল</label>
-                                    <select class="form-control" name="rawmaterials_id[]" id="rawmaterials_id" required >
-                                        <option selected disabled value="">Choose an option</option>
-                                        @foreach($rawmaterials as $rawmaterial)
-                                            <option value="{{$rawmaterial->id}}">{{$rawmaterial->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="quantity">পরিমাণ</label>
-                                    <input type="number" id="rawmaterials_quantity" name="rawmaterials_quantity[]" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="unit">একক</label>
-                                    <input type="text" id="unit" name="unit[]" class="form-control" value="KG" readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="item"></label>
-                                    <button type="button" class="btn btn-gradient-info btn-lg btn-block" id="add_item"><i class="mdi mdi-plus menu-icon text-center"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="append_item">
-
                         </div>
                         <div class="form-group">
                             <label for="warehouse_id" >গোডাউন</label>
@@ -81,19 +47,5 @@
         </div>
     </div>
     {!! Form::close() !!}
-    <script>
-        function _(x){
-            return document.getElementById(x);
-        }
-        $(document).on('click', '#add_item', function (){
-            var html ='';
-            html += '<div class="row"> <div class="col-md-3">\n' + '<div class="form-group">\n' + '<label for="rawmaterials_id" >কাঁচামাল</label>\n' + '<select class="form-control" name="rawmaterials_id[]" id="rawmaterials_id" required >\n' + '<option selected disabled value="">Choose an option</option>\n' + '@foreach($rawmaterials as $rawmaterial)\n' + '    <option value="{{$rawmaterial->id}}">{{$rawmaterial->name}}</option>\n' + '@endforeach\n' + '</select>\n' + '</div>\n' + '</div><div class="col-md-3"> <div class="form-group"> <label for="rawmaterials_quantity">পরিমাণ</label> <input type="number" id="rawmaterials_quantity" name="rawmaterials_quantity[]" class="form-control" required> </div> </div><div class="col-md-3"> <div class="form-group"> <label for="unit">একক</label> <input type="text" id="unit" name="unit[]" class="form-control" value="KG" readonly> </div> </div><div class="col-md-3"><label for="item"></label> <div class="form-group"><button type="button" class="btn btn-gradient-info btn-lg btn-block" id="minus_item"><i class="mdi mdi-minus menu-icon"></i></button></div> </div></div>'
-            $('#append_item').append(html);
-        });
-        $(document).on('click','#minus_item',function(){
-            $(this).parent().parent().parent().remove();
-
-        });
-    </script>
 @endsection
 

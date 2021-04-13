@@ -9,6 +9,7 @@ class Purchase extends Model
     protected $fillable = [
       'date',
       'supplier_id',
+      'product',
       'bag',
       'quantity',
       'unit_price',

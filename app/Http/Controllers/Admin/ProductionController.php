@@ -15,16 +15,14 @@ class ProductionController extends Controller
     public function index()
     {
         $productions = Production::orderBy('id', 'DESC')->paginate(10);
-        $rawmaterials = Rawmaterial::orderBy('id', 'DESC')->get();
-        return view('production.index', compact('productions', 'rawmaterials'));
+        return view('production.index', compact('productions'));
     }
 
     public function create()
     {
         $warehouses = Warehouse::orderBy('id', 'DESC')->get();
         $finishedgoods = Finishedgood::orderBy('id', 'DESC')->get();
-        $rawmaterials = Rawmaterial::orderBy('id', 'DESC')->get();
-        return view('production.create', compact('warehouses', 'finishedgoods', 'rawmaterials'));
+        return view('production.create', compact('warehouses', 'finishedgoods'));
     }
 
     public function store(Request $request)
@@ -33,11 +31,7 @@ class ProductionController extends Controller
            'date'=>$request->date,
            'finishedgood_id'=>$request->finishedgood_id,
            'finishedgood_quantity'=>$request->finishedgood_quantity,
-           'rawmaterials_id'=>json_encode($request->rawmaterials_id),
-           'rawmaterials_quantity'=>json_encode($request->rawmaterials_quantity),
-           'rawmaterials_unit'=>json_encode($request->unit),
            'warehouse_id'=>$request->warehouse_id,
-           'status'=>'pending',
         ]);
         Session::flash('success', 'Production Created Successfully');
         return redirect()->route('production.index');
@@ -53,8 +47,7 @@ class ProductionController extends Controller
         $production = Production::find($id);
         $warehouses = Warehouse::orderBy('id', 'DESC')->get();
         $finishedgoods = Finishedgood::orderBy('id', 'DESC')->get();
-        $rawmaterials = Rawmaterial::orderBy('id', 'DESC')->get();
-        return view('production.edit', compact('production', 'warehouses', 'finishedgoods', 'rawmaterials'));
+        return view('production.edit', compact('production', 'warehouses', 'finishedgoods'));
     }
 
     public function update(Request $request, $id)
@@ -64,9 +57,6 @@ class ProductionController extends Controller
             'date'=>$request->date,
             'finishedgood_id'=>$request->finishedgood_id,
             'finishedgood_quantity'=>$request->finishedgood_quantity,
-            'rawmaterials_id'=>json_encode($request->rawmaterials_id),
-            'rawmaterials_quantity'=>json_encode($request->rawmaterials_quantity),
-            'rawmaterials_unit'=>json_encode($request->unit),
             'warehouse_id'=>$request->warehouse_id,
         ]);
         Session::flash('success', 'Production Updated Successfully');

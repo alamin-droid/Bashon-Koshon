@@ -13,6 +13,7 @@ class CreatePurchasesTable extends Migration
             $table->bigIncrements('id');
             $table->string('date')->nullable();
             $table->string('supplier_id')->nullable();
+            $table->string('product')->nullable();
             $table->string('bag')->nullable();
             $table->string('quantity')->nullable();
             $table->string('unit_price')->nullable();

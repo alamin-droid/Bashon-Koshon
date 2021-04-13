@@ -105,7 +105,7 @@ Route::get('/home', 'HomeController@index')->name('home');
     Route::post('attendance-entry-store', 'Admin\AttendanceController@entry_store')->name('attendance.entry_store');
     Route::get('attendance-exit', 'Admin\AttendanceController@exit')->name('attendance.exit');
     Route::post('attendance-exit-store', 'Admin\AttendanceController@exit_store')->name('attendance.exit_store');
-    Route::get('attendance-index', 'Admin\AttendanceController@index')->name('attendance.attendance_info');
+    Route::get('attendance-index', 'Admin\AttendanceController@index')->name('attendance.index');
     Route::get('attendance-show-{id}', 'Admin\AttendanceController@show')->name('attendance.show');
     Route::get('attendance-date_search', 'Admin\AttendanceController@date_search')->name('attendance.date_search');
     Route::post('/attendance/month/','Admin\AttendanceController@attendance_Month')->name('attendance_month');
@@ -155,6 +155,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('report-balance', 'Admin\ReportController@balance')->name('report.balance');
     Route::get('report-balance-date_search', 'Admin\ReportController@balance_date')->name('report.date_search_balance_sheet');
+    Route::get('report-godown', 'Admin\ReportController@godown')->name('report.godown');
+    Route::get('report-godown-date_search', 'Admin\ReportController@godown_date')->name('report.date_search_godown');
 
     Route::resource('/shooter', 'Admin\ShooterController');
     Route::get('shooter-index', 'Admin\ShooterController@index')->name('shooter.index');

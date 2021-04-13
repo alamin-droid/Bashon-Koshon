@@ -56,19 +56,25 @@
 
                             {!! Form::close() !!}
                             <div id="printBalance">
+                                <br/><br/><br/>
+                                <div class="row">
+                                    <div class="col-sm-2 text-right"><img src="{{asset('assets/images/logo/n_islam_logo.png')}}" style="width: 60%; margin-top: -25px"> </div>
+                                    <div class="col-sm-8"><h1 class="text-center"> <b> এন ইসলাম অটো রাইস মিল </b></h1></div>
+                                    <div class="col-sm-2"></div>
+                                </div>
                                 <div class="row"><div class="col-md-12"><h2 class="text-center text-info">{{$show->name}}<hr/></h2><br/></div></div>
                                 @if(!empty($from))
                                     <div class="row">
-                                        <div class="col-md-3"></div>
-                                        <div class="col-md-6"><h4 class="project_info_tag text-center">ডেবিট এবং ক্রেডিট হিস্টোরি</h4></div>
-                                        <div class="col-md-3">তারিখ থেকে : {{$from}} <br/> তারিখ পর্যন্ত : {{$to}}</div>
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-6"><h4 class="project_info_tag text-center">ডেবিট এবং ক্রেডিট হিস্টোরি</h4></div>
+                                        <div class="col-sm-3">তারিখ থেকে : {{$from}} <br/> তারিখ পর্যন্ত : {{$to}}</div>
                                     </div>
                                     <br/>
                                 @else
                                     <div class="row">
-                                        <div class="col-md-3"></div>
-                                        <div class="col-md-6"><h4 class="project_info_tag text-center">ডেবিট এবং ক্রেডিট হিস্টোরি</h4></div>
-                                        <div class="col-md-3">তারিখ :: {{date('Y-m-d')}}</div>
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-6"><h4 class="project_info_tag text-center">ডেবিট এবং ক্রেডিট হিস্টোরি</h4></div>
+                                        <div class="col-sm-3">তারিখ :: {{date('Y-m-d')}}</div>
                                     </div>
                                     <br/>
                                 @endif

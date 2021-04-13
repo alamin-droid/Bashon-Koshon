@@ -8,6 +8,7 @@ use App\Production;
 use App\Purchase;
 use App\Rawmaterial;
 use App\Sell;
+use App\Shooter;
 use App\Supplier;
 use App\Warehouse;
 use Illuminate\Http\Request;
@@ -72,20 +73,60 @@ class WarehouseController extends Controller
     }
     public function warehouse_details($id){
         $warehouse = Warehouse::find($id);
-//        $purchases = Purchase::where('warehouse_id', $id)->where('status', 'approved')->orderBy('id', 'DESC')->paginate(10);
-//        $sells = Sell::where('warehouse_id', $id)->where('status', 'approved')->orderBy('id', 'DESC')->paginate(10);
-//        $finishedgoods = Finishedgood::orderBy('id', 'DESC')->get();
-//        $productions = Production::orderBy('id', 'DESC')->sum('finishedgood_quantity');
-//        $purchased = 0;
-//        foreach($purchases as $purchase){
-//            $quantity = explode(',',str_replace(str_split('[]""'),'',$purchase->quantity));
-//            for($i=0 ;$i<count($quantity) ; $i++){
-//                $purchased += $quantity[$i];
-//            }
-//        }
-//        $materials = Rawmaterial::orderBy('id', 'DESC')->get();
-//        $suppliers = Supplier::orderBy('id', 'DESC')->get();
-//        $production_approves = Production::where('status', 'approved')->orderBy('id', 'DESC')->paginate(10);
-        return view('warehouse.details', compact('warehouse'));
+        if($id == 5){
+            $shooters = Shooter::orderBy('id', 'DESC')->get();
+            $purchases = Purchase::where('product', '6')->get();
+            $productions = Production::where('finishedgood_id', '6')->get();
+            $sells = Sell::orderBy('id', 'DESC')->get();
+
+            $total_purchase = $purchases->sum('bag') + $productions->sum('finishedgood_quantity');
+            $total_sell = 0;
+            $counter = 1;
+            foreach($shooters as $shooter){
+                $shooter['item'] = explode(',',str_replace(str_split('[]""'),'',$shooter->excess_item));
+                $shooter['qty'] = explode(',',str_replace(str_split('[]""'),'',$shooter->excess_item_qty));
+                for($i=0; $i<count($shooter->item) ;$i++){
+                    if($shooter->item[$i] == '6'){
+                        $total_purchase += $shooter->qty[$i];
+                    }
+                }
+            }
+            foreach($sells as $sell){
+                $sell['product'] = explode(',',str_replace(str_split('[]""'),'',$sell->type_of_rice));
+                $sell['product_quantity'] = explode(',',str_replace(str_split('[]""'),'',$sell->quantity));
+                for($i=0; $i<count($sell->product) ;$i++){
+                    if($sell->product[$i] == '6'){
+                        $total_sell += $sell->product_quantity[$i];
+                    }
+                }
+            }
+            unset ($shooter['item'], $shooter['qty'], $sell['product'], $sell['product_quantity']);
+            return view('warehouse.kura', compact('warehouse', 'shooters', 'purchases', 'sells', 'counter', 'total_purchase', 'total_sell', 'productions'));
+        }
+        if($id == 2){
+            $productions = Production::orderBy('id', 'DESC')->paginate();
+            $total_production = Production::sum('finishedgood_quantity');
+            $total_sell = 0;
+            $counter = 1;
+            $sells = Sell::orderBy('id', 'DESC')->get();
+            foreach($sells as $sell){
+                $sell['product'] = explode(',',str_replace(str_split('[]""'),'',$sell->type_of_rice));
+                $sell['product_quantity'] = explode(',',str_replace(str_split('[]""'),'',$sell->quantity));
+                for($i=0; $i<count($sell->product) ;$i++){
+                    if($sell->product[$i] != '5' || $sell->product[$i] != '6'){
+                        $total_sell += $sell->product_quantity[$i];
+                    }
+                }
+            }
+            unset ($sell['product'], $sell['product_quantity']);
+            return view('warehouse.rice', compact('warehouse', 'productions', 'total_production', 'sells', 'counter','total_sell'));
+        }
+        if($id == 4){
+            $purchases = Purchase::where('product','!=', '5')->orWhere('product','!=', '6')->orWhere('product','!=', '7')->get();
+            $total_purchase = $purchases->sum('bag');
+            $counter = 1;
+            return view('warehouse.paddy', compact('warehouse','purchases','total_purchase','counter'));
+        }
+
     }
 }

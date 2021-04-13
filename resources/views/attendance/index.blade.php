@@ -64,7 +64,7 @@
                                                 <tr>
                                                     <td>{{!empty($employee = \App\Employee::find($attendance->employee_id[$i])) ? $employee->name : 'N/A' }}</td>
                                                     <td>{!! ($attendance->in_time[$i] != 'null') ? date('h:i a', strtotime($attendance->in_time[$i]))  : '<h6 class=text-danger>অনুম্পস্থিত</h6>' !!}</td>
-                                                    <td>{!! ($attendance->out_time[$i] != 'null') ? date('h:i a', strtotime($attendance->out_time[$i])) : '<h6 class=text-danger>অনুম্পস্থিত</h6>' !!}</td>
+                                                    <td>{!! ($attendance->in_time[$i] != 'null') ? date('h:i a', strtotime($attendance->out_time[$i])) : '<h6 class=text-danger>অনুম্পস্থিত</h6>' !!}</td>
                                                     <td>{{$attendance->total_time[$i]}}</td>
                                                 </tr>
                                                 @endfor
